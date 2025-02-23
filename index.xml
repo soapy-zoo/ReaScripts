@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's reascripts" commit="3aba6d3778badd5ceaf51a6195b9506439058b3e">
+<index version="1" name="soapy-zoo's scripts" commit="3aba6d3778badd5ceaf51a6195b9506439058b3e">
   <category name="Example">
     <reapack name="cfillion_Hello world.lua" type="script" desc="Hello world">
       <metadata>
