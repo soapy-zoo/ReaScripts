@@ -8,5 +8,5 @@
 -- @provides
 --    [main] *.lua
 --    [nomain] soapy-seahorse_functions/*.lua
---    [nomain] .
+--    [nomain] reapack-metadata.lua
 --    [nomain] *.md
