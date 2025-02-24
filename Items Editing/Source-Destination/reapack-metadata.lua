@@ -4,6 +4,7 @@
 -- @about
 --   # Seahorse Source-Destination Tools 
 --   _documentation will follow soon(TM)_
+-- @noindex
 -- @metapackage
 -- @provides
 --    [main] *.lua
