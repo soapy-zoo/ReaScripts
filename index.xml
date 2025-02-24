@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="3aba6d3778badd5ceaf51a6195b9506439058b3e">
+<index version="1" name="soapy-zoo's scripts" commit="02ec1699b466d57fe4b6ae5f31374d6233d37b5f">
   <category name="Example">
     <reapack name="cfillion_Hello world.lua" type="script" desc="Hello world">
       <metadata>
@@ -18,6 +18,37 @@ Markdown
       </metadata>
       <version name="1.0" author="cfillion" time="2021-01-04T23:30:32Z">
         <source main="main">https://github.com/cfillion/reapack-repository-template/raw/58a3e39ba95bd0f35846aa1f39aa4cb2574295e1/Example/cfillion_Hello%20world.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <category name="Items Editing/Source-Destination">
+    <reapack name="reapack-metadata.txt" type="midinotenames" desc="Seahorse Source-Destination Tools">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Seahorse Source-Destination Tools\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\i documentation will follow soon(TM)}\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1" author="the soapy zoo" time="2025-02-23T23:58:19Z">
+        <source file="soapy-seahorse_Edit_3PointNoRipple.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Edit_3PointNoRipple.lua</source>
+        <source file="soapy-seahorse_Edit_3pointRipple.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Edit_3pointRipple.lua</source>
+        <source file="soapy-seahorse_Edit_4point.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Edit_4point.lua</source>
+        <source file="soapy-seahorse_Edit_ExtendItems.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Edit_ExtendItems.lua</source>
+        <source file="soapy-seahorse_Edit_QuickFade.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Edit_QuickFade.lua</source>
+        <source file="soapy-seahorse_Fades_AuditionOIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionOIn.lua</source>
+        <source file="soapy-seahorse_Fades_AuditionOOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionOOut.lua</source>
+        <source file="soapy-seahorse_Fades_AuditionXFade.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXFade.lua</source>
+        <source file="soapy-seahorse_Fades_AuditionXIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXIn.lua</source>
+        <source file="soapy-seahorse_Fades_AuditionXOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXOut.lua</source>
+        <source file="soapy-seahorse_Markers_RemoveAllSrc.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Markers_RemoveAllSrc.lua</source>
+        <source file="soapy-seahorse_Markers_SetDstIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetDstIn.lua</source>
+        <source file="soapy-seahorse_Markers_SetDstOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetDstOut.lua</source>
+        <source file="soapy-seahorse_Markers_SetSrcIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetSrcIn.lua</source>
+        <source file="soapy-seahorse_Markers_SetSrcOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/02ec1699b466d57fe4b6ae5f31374d6233d37b5f/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetSrcOut.lua</source>
       </version>
     </reapack>
   </category>
