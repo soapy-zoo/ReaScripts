@@ -1,4 +1,14 @@
--- @noindex
+-- @description Seahorse Source-Destination Tools 
+-- @version 0.1 
+-- @author the soapy zoo
+-- @about
+--   # Seahorse Source-Destination Tools 
+--   _documentation will follow soon(TM)_
+-- @provides
+--    [main] *.lua
+--    [nomain] soapy-seahorse_functions/*.lua
+--    [nomain] reapack-metadata.lua
+--    [nomain] *.md
 --[[
 
 source-destination fades: audition crossfade
