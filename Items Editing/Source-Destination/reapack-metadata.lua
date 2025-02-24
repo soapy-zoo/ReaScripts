@@ -7,6 +7,6 @@
 -- @metapackage
 -- @provides
 --    [main] *.lua
---    [nomain] soapy-seahorse_functions\*.lua
+--    [nomain] soapy-seahorse_functions/*.lua
 --    [nomain] .
 --    [nomain] *.md
