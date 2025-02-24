@@ -3,11 +3,10 @@
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
---   _documentation will follow soon(TM)_
+--   documentation will follow _soon(TM)_
 -- @provides
 --    [main] *.lua
 --    [nomain] soapy-seahorse_functions/*.lua
---    [nomain] reapack-metadata.lua
 --    [nomain] *.md
 --[[
 
