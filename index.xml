@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="567213c3721b23b7d66e9b8a627f666d02cc20e8">
+<index version="1" name="soapy-zoo's scripts" commit="3432836039bf861fd3571e503f63e936af043fc6">
   <category name="Items Editing/Lock Fixed Lane Items">
-    <reapack name="soapy-snail_LockSource_ToggleLock.lua" type="script" desc="&quot;Snail&quot; Lock Fixed Lane Items">
+    <reapack name="soapy-snail_LockSource_ToggleLock.lua" type="script" desc="Lock Fixed Lane Items (&quot;Snail&quot;)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -17,7 +17,7 @@
     </reapack>
   </category>
   <category name="Items Editing/Source-Destination">
-    <reapack name="soapy-seahorse_Fades_AuditionXFade.lua" type="script" desc="Seahorse Source-Destination Tools">
+    <reapack name="soapy-seahorse_Fades_AuditionXFade.lua" type="script" desc="Source-Destination Tools (&quot;Seahorse&quot;)">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
