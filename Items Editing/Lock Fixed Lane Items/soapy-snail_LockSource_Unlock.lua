@@ -1,3 +1,4 @@
+-- @noindex
 --[[
 
 LockSource_Unlock
