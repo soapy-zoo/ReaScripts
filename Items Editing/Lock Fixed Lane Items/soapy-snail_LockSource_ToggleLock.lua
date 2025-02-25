@@ -1,4 +1,4 @@
--- @description "Snail" Lock Fixed Lane Items
+-- @description Lock Fixed Lane Items ("Snail")
 -- @version 0.1 
 -- @author the soapy zoo
 -- @about
