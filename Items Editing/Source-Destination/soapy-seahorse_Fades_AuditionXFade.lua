@@ -1,4 +1,4 @@
--- @description Seahorse Source-Destination Tools 
+-- @description Source-Destination Tools ("Seahorse")
 -- @version 0.1 
 -- @author the soapy zoo
 -- @about
