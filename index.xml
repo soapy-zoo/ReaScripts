@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="d22d9833d028da354ca21067318bf63b9cc04604">
+<index version="1" name="soapy-zoo's scripts" commit="567213c3721b23b7d66e9b8a627f666d02cc20e8">
+  <category name="Items Editing/Lock Fixed Lane Items">
+    <reapack name="soapy-snail_LockSource_ToggleLock.lua" type="script" desc="&quot;Snail&quot; Lock Fixed Lane Items">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 "Snail" Lock Fixed Lane Items\par}
+}
+]]></description>
+      </metadata>
+      <version name="0.1" author="the soapy zoo" time="2025-02-25T12:40:34Z">
+        <source main="main">https://github.com/soapy-zoo/ReaScripts/raw/567213c3721b23b7d66e9b8a627f666d02cc20e8/Items%20Editing/Lock%20Fixed%20Lane%20Items/soapy-snail_LockSource_ToggleLock.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Items Editing/Source-Destination">
     <reapack name="soapy-seahorse_Fades_AuditionXFade.lua" type="script" desc="Seahorse Source-Destination Tools">
       <metadata>
