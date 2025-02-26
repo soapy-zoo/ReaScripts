@@ -1,6 +1,13 @@
-# soapy zoo's ReaPack Repository
-## A Quick Introduction to the "Seahorse" Source-Destination Tools
+# Seahorse 🌊 Tools for REAPER
+Source-Destination editing using REAPER's Fixed Item Lanes.
+
 https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 
-## Install the Scripts via ReaPack
+# Snail 🐌 Tools for REAPER
+Lock Items in Fixed Item Lanes when ripple editing.
+
+# Bat 🦇 Tools for REAPER
+Quickly move items around using sync points.
+
+# Install the Scripts via ReaPack
 https://raw.githubusercontent.com/soapy-zoo/ReaScripts/refs/heads/master/index.xml
