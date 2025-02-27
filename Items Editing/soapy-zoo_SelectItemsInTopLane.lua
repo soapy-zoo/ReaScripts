@@ -2,6 +2,8 @@
 -- @version 0.1 
 -- @author the soapy zoo
 
+local r = reaper
+
 function main()
 
   r.Undo_BeginBlock()
