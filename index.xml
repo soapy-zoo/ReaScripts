@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="7b949760c409bc859e185b99409c2f702e786907">
+<index version="1" name="soapy-zoo's scripts" commit="0604808af39f39d0e88ec2d744d0ac4ba861e7e5">
+  <category name="Items Editing">
+    <reapack name="soapy-zoo_SelectItemsInTopLane.lua" type="script" desc="Select all items in topmost fixed lane">
+      <version name="0.1" author="the soapy zoo" time="2025-02-27T01:47:55Z">
+        <source main="main">https://github.com/soapy-zoo/ReaScripts/raw/0604808af39f39d0e88ec2d744d0ac4ba861e7e5/Items%20Editing/soapy-zoo_SelectItemsInTopLane.lua</source>
+      </version>
+    </reapack>
+  </category>
   <category name="Items Editing/Lock Fixed Lane Items">
     <reapack name="soapy-snail_LockSource_ToggleLock.lua" type="script" desc="Lock Fixed Lane Items (&quot;Snail&quot;)">
       <metadata>
