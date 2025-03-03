@@ -1,5 +1,5 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.3
+-- @version 0.2.4
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
@@ -130,6 +130,13 @@ end
 
 ----------------------------------------------------------------------------------------------------------
 
+function ErrMsgNumber()
+
+    r.MB('Please make sure to enter a valid number.', 'Notice', 0)
+
+end
+----------------------------------------------------------------------------------------------------------
+
 function Main()
 
     local window = rtk.Window{borderless=false, title='Seahorse Source-Destination Settings', minh=750}
@@ -148,15 +155,16 @@ function Main()
 
             local en_xFadeLen = rtk.Entry{placeholder='Default Crossfade Length', textwidth=3.1, value=f_xFadeLen}
             local tx_xFadeLen = rtk.Text{'Default Crossfade Length (seconds)'}
+            local bt_xFadeLen = rtk.Button{label='Apply', color='DimGrey'}
 
             childBox:add(cb_ShowHoverWarnings)
 
             childBox:add(spacer)
 
-            local enBox = rtk.HBox{valign='center'}
-
+            local enBox = rtk.HBox{valign='center', spacing=8}
             enBox:add(en_xFadeLen)
             enBox:add(tx_xFadeLen)
+            enBox:add(bt_xFadeLen)
             childBox:add(enBox)
 
             pBox:add(rtk.Heading{'General'})
@@ -166,6 +174,20 @@ function Main()
 
             cb_ShowHoverWarnings.onchange = function()
                 r.SetExtState(sectionName, 'b_ShowHoverWarnings', BoolToString(cb_ShowHoverWarnings.value), true)
+            end
+
+            local en_xFadeLen_state = f_xFadeLen
+            en_xFadeLen.onchange = function()
+                en_xFadeLen_state = en_xFadeLen.value
+                bt_xFadeLen:animate{'color', dst='crimson'}
+            end
+            bt_xFadeLen.onclick = function()
+                if type(tonumber(en_xFadeLen_state)) == "number" and en_xFadeLen_state == en_xFadeLen_state then
+                    bt_xFadeLen:animate{'color', dst='green'}
+                    r.SetExtState(sectionName, 'f_xFadeLen', tostring(en_xFadeLen_state), true)
+                else
+                    ErrMsgNumber()
+                end
             end
         end
     }
@@ -219,6 +241,12 @@ function Main()
             cb_KeepLaneSolo.onchange = function()
                 r.SetExtState(sectionName, 'b_KeepLaneSolo', BoolToString(cb_KeepLaneSolo.value), true)
             end
+            cb_GatesTargetItemUnderMouse.onchange = function()
+                r.SetExtState(sectionName, 'b_GatesTargetItemUnderMouse', BoolToString(cb_GatesTargetItemUnderMouse.value), true)
+            end
+            cb_GatesTargetMouseInsteadOfCursor.onchange = function()
+                r.SetExtState(sectionName, 'cb_GatesTargetMouseInsteadOfCursor', BoolToString(cb_GatesTargetMouseInsteadOfCursor.value), true)
+            end
 
             screen.widget = pBox
 
@@ -244,8 +272,10 @@ function Main()
             local sl_cursorBias_QuickFade = rtk.Slider{placeholder='Cursor Bias Quick Fade', color='purple', min=0.0, max=1.0, step=0.02, value=f_cursorBias_QuickFade}
             local en_extensionAmount = rtk.Entry{placeholder='extension Amount (seconds)', textwidth=3.1, value=f_extensionAmount}
             local tx_extensionAmount = rtk.Text{'Extension Amount (seconds)'}
+            local bt_extensionAmount = rtk.Button{label='Apply', color='DimGrey'}
             local en_collisionPadding = rtk.Entry{placeholder='Collision Padding (seconds)', textwidth=3.1, value=f_collisionPadding}
             local tx_collisionPadding = rtk.Text{'Collision Padding (seconds)'}
+            local bt_collisionPadding = rtk.Button{label='Apply', color='DimGrey'}
 
             childBox:add(cb_PreserveEditCursorPosition)
             childBox:add(cb_SelectRightItemAtCleanup)
@@ -253,36 +283,38 @@ function Main()
             childBox:add(cb_PreserveExistingCrossfade)
             childBox:add(cb_EditTargetsMouseInsteadOfCursor)
 
+            -- childBox:add(spacer)
+
+            -- local slBox11 = rtk.HBox{spacing=5, valign='center'}
+            -- slBox11:add(rtk.Text{'Left'})
+            -- slBox11:add(sl_cursorBias_Extender)
+            -- slBox11:add(rtk.Text{'Right'})
+            -- local slBox1 = rtk.VBox{}
+            -- slBox1:add(rtk.Text{'Cursor Bias Item Extender:'})
+            -- slBox1:add(slBox11)
+            -- childBox:add(slBox1)
+
+            -- local slBox22 = rtk.HBox{spacing=5, valign='center'}
+            -- slBox22:add(rtk.Text{'Left'})
+            -- slBox22:add(sl_cursorBias_QuickFade)
+            -- slBox22:add(rtk.Text{'Right'})
+            -- local slBox2 = rtk.VBox{}
+            -- slBox2:add(rtk.Text{'Cursor Bias Quick Fade:'})
+            -- slBox2:add(slBox22)
+            -- childBox:add(slBox2)
+
             childBox:add(spacer)
 
-            local slBox11 = rtk.HBox{spacing=5, valign='center'}
-            slBox11:add(rtk.Text{'Left'})
-            slBox11:add(sl_cursorBias_Extender)
-            slBox11:add(rtk.Text{'Right'})
-            local slBox1 = rtk.VBox{}
-            slBox1:add(rtk.Text{'Cursor Bias Item Extender:'})
-            slBox1:add(slBox11)
-            childBox:add(slBox1)
-
-            local slBox22 = rtk.HBox{spacing=5, valign='center'}
-            slBox22:add(rtk.Text{'Left'})
-            slBox22:add(sl_cursorBias_QuickFade)
-            slBox22:add(rtk.Text{'Right'})
-            local slBox2 = rtk.VBox{}
-            slBox2:add(rtk.Text{'Cursor Bias Quick Fade:'})
-            slBox2:add(slBox22)
-            childBox:add(slBox2)
-
-            childBox:add(spacer)
-
-            local enBox1 = rtk.HBox{valign='center'}
+            local enBox1 = rtk.HBox{valign='center', spacing=8}
             enBox1:add(en_extensionAmount)
             enBox1:add(tx_extensionAmount)
+            enBox1:add(bt_extensionAmount)
             childBox:add(enBox1)
 
-            local enBox2 = rtk.HBox{valign='center'}
+            local enBox2 = rtk.HBox{valign='center', spacing=8}
             enBox2:add(en_collisionPadding)
             enBox2:add(tx_collisionPadding)
+            enBox2:add(bt_collisionPadding)
             childBox:add(enBox2)
 
             pBox:add(rtk.Heading{'Item Extender & Quick Fade'})
@@ -306,6 +338,33 @@ function Main()
                 r.SetExtState(sectionName, 'b_EditTargetsMouseInsteadOfCursor', BoolToString(cb_EditTargetsMouseInsteadOfCursor.value), true)
             end
 
+            -- entry and button handling
+            local en_extensionAmount_state, en_collisionPadding_state = f_extensionAmount, f_collisionPadding
+            en_extensionAmount.onchange = function()
+                en_extensionAmount_state = en_extensionAmount.value
+                bt_extensionAmount:animate{'color', dst='crimson'}
+            end
+            bt_extensionAmount.onclick = function()
+                if type(tonumber(en_extensionAmount_state)) == "number" and en_extensionAmount_state == en_extensionAmount_state then
+                    bt_extensionAmount:animate{'color', dst='green'}
+                    r.SetExtState(sectionName, 'f_extensionAmount', tostring(en_extensionAmount_state), true)
+                else
+                    ErrMsgNumber()
+                end
+            end
+
+            en_collisionPadding.onchange = function()
+                en_collisionPadding_state = en_collisionPadding.value
+                bt_collisionPadding:animate{'color', dst='crimson'}
+            end
+            bt_collisionPadding.onclick = function()
+                if type(tonumber(en_collisionPadding_state)) == "number" and en_collisionPadding_state == en_collisionPadding_state then
+                    bt_collisionPadding:animate{'color', dst='green'}
+                    r.SetExtState(sectionName, 'f_collisionPadding', en_collisionPadding_state, true)
+                else
+                    ErrMsgNumber()
+                end
+            end
         end
     }
 
@@ -371,33 +430,58 @@ function Main()
     app:add_screen(audition, 'audition')
     app:add_screen(advanced, 'advanced')
 
-    local b1 = app.toolbar:add(rtk.Button{label='General', flat=true})
-    local b2 = app.toolbar:add(rtk.Button{label='Edit & Gates', flat=true})
-    local b3 = app.toolbar:add(rtk.Button{label='Extend & Fade', flat=true})
-    local b4 = app.toolbar:add(rtk.Button{label='Audition', flat=true})
-    local b5 = app.toolbar:add(rtk.Button{label='Advanced', flat=true})
+    local b1 = app.toolbar:add(rtk.Button{label='General', color='MediumOrchid'})
+    local b2 = app.toolbar:add(rtk.Button{label='Edit & Gates', color='DimGrey'})
+    local b3 = app.toolbar:add(rtk.Button{label='Extend & Fade', color='DimGrey'})
+    local b4 = app.toolbar:add(rtk.Button{label='Audition', color='DimGrey'})
+    local b5 = app.toolbar:add(rtk.Button{label='Advanced', color='DimGrey'})
     b1.onclick = function()
         app:push_screen('general')
+        b1:animate{'color', dst='MediumOrchid'}
+        b2:animate{'color', dst='DimGrey'}
+        b3:animate{'color', dst='DimGrey'}
+        b4:animate{'color', dst='DimGrey'}
+        b5:animate{'color', dst='DimGrey'}
         -- Mark as handled, for the same reason as described above.
         return true
     end
     b2.onclick = function()
         app:push_screen('edit_markers')
+        b1:animate{'color', dst='DimGrey'}
+        b2:animate{'color', dst='MediumOrchid'}
+        b3:animate{'color', dst='DimGrey'}
+        b4:animate{'color', dst='DimGrey'}
+        b5:animate{'color', dst='DimGrey'}
         -- Mark as handled, for the same reason as described above.
         return true
     end
     b3.onclick = function()
         app:push_screen('extend_fade')
+        b1:animate{'color', dst='DimGrey'}
+        b2:animate{'color', dst='DimGrey'}
+        b3:animate{'color', dst='MediumOrchid'}
+        b4:animate{'color', dst='DimGrey'}
+        b5:animate{'color', dst='DimGrey'}
         -- Mark as handled, for the same reason as described above.
         return true
     end
     b4.onclick = function()
         app:push_screen('audition')
+        b1:animate{'color', dst='DimGrey'}
+        b2:animate{'color', dst='DimGrey'}
+        b3:animate{'color', dst='DimGrey'}
+        b4:animate{'color', dst='MediumOrchid'}
+        b5:animate{'color', dst='DimGrey'}
         -- Mark as handled, for the same reason as described above.
         return true
     end
     b5.onclick = function()
         app:push_screen('advanced')
+        b1:animate{'color', dst='DimGrey'}
+        b2:animate{'color', dst='DimGrey'}
+        b3:animate{'color', dst='DimGrey'}
+        b4:animate{'color', dst='DimGrey'}
+        b5:animate{'color', dst='MediumOrchid'}
         -- Mark as handled, for the same reason as described above.
         return true
     end
