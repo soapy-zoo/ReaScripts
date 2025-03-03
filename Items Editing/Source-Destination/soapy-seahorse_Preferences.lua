@@ -1,5 +1,5 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.4
+-- @version 0.2.5
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
@@ -245,7 +245,7 @@ function Main()
                 r.SetExtState(sectionName, 'b_GatesTargetItemUnderMouse', BoolToString(cb_GatesTargetItemUnderMouse.value), true)
             end
             cb_GatesTargetMouseInsteadOfCursor.onchange = function()
-                r.SetExtState(sectionName, 'cb_GatesTargetMouseInsteadOfCursor', BoolToString(cb_GatesTargetMouseInsteadOfCursor.value), true)
+                r.SetExtState(sectionName, 'b_GatesTargetMouseInsteadOfCursor', BoolToString(cb_GatesTargetMouseInsteadOfCursor.value), true)
             end
 
             screen.widget = pBox
