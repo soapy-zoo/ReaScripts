@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="0604808af39f39d0e88ec2d744d0ac4ba861e7e5">
+<index version="1" name="soapy-zoo's scripts" commit="462444528416463ea5ed7de72352e5911aa8d300">
   <category name="Items Editing">
     <reapack name="soapy-zoo_SelectItemsInTopLane.lua" type="script" desc="Select all items in topmost fixed lane">
       <version name="0.1" author="the soapy zoo" time="2025-02-27T01:47:55Z">
@@ -20,43 +20,6 @@
       </metadata>
       <version name="0.1" author="the soapy zoo" time="2025-02-25T12:40:34Z">
         <source main="main">https://github.com/soapy-zoo/ReaScripts/raw/567213c3721b23b7d66e9b8a627f666d02cc20e8/Items%20Editing/Lock%20Fixed%20Lane%20Items/soapy-snail_LockSource_ToggleLock.lua</source>
-      </version>
-    </reapack>
-  </category>
-  <category name="Items Editing/Source-Destination">
-    <reapack name="soapy-seahorse_Fades_AuditionXFade.lua" type="script" desc="Source-Destination Tools (&quot;Seahorse&quot;)">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Seahorse Source-Destination Tools\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 documentation will follow {\i soon(TM)}\par}
-}
-]]></description>
-      </metadata>
-      <version name="0.1" author="the soapy zoo" time="2025-02-24T00:38:58Z">
-        <source main="main" file="soapy-seahorse_Edit_3PointNoRipple.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Edit_3PointNoRipple.lua</source>
-        <source main="main" file="soapy-seahorse_Edit_3pointRipple.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Edit_3pointRipple.lua</source>
-        <source main="main" file="soapy-seahorse_Edit_4point.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Edit_4point.lua</source>
-        <source main="main" file="soapy-seahorse_Edit_ExtendItems.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Edit_ExtendItems.lua</source>
-        <source main="main" file="soapy-seahorse_Edit_QuickFade.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Edit_QuickFade.lua</source>
-        <source main="main" file="soapy-seahorse_Fades_AuditionOIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionOIn.lua</source>
-        <source main="main" file="soapy-seahorse_Fades_AuditionOOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionOOut.lua</source>
-        <source main="main">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXFade.lua</source>
-        <source main="main" file="soapy-seahorse_Fades_AuditionXIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXIn.lua</source>
-        <source main="main" file="soapy-seahorse_Fades_AuditionXOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Fades_AuditionXOut.lua</source>
-        <source main="main" file="soapy-seahorse_Markers_RemoveAllSrc.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Markers_RemoveAllSrc.lua</source>
-        <source main="main" file="soapy-seahorse_Markers_SetDstIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetDstIn.lua</source>
-        <source main="main" file="soapy-seahorse_Markers_SetDstOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetDstOut.lua</source>
-        <source main="main" file="soapy-seahorse_Markers_SetSrcIn.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetSrcIn.lua</source>
-        <source main="main" file="soapy-seahorse_Markers_SetSrcOut.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_Markers_SetSrcOut.lua</source>
-        <source file="soapy-seahorse_functions/soapy-seahorse_Edit_Functions.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_functions/soapy-seahorse_Edit_Functions.lua</source>
-        <source file="soapy-seahorse_functions/soapy-seahorse_Fades_Functions.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_functions/soapy-seahorse_Fades_Functions.lua</source>
-        <source file="soapy-seahorse_functions/soapy-seahorse_Markers_Functions.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_functions/soapy-seahorse_Markers_Functions.lua</source>
-        <source file="soapy-seahorse_functions/soapy-seahorse_Settings.lua">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/soapy-seahorse_functions/soapy-seahorse_Settings.lua</source>
-        <source file="LICENSE.md">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/LICENSE.md</source>
-        <source file="README.md">https://github.com/soapy-zoo/ReaScripts/raw/d22d9833d028da354ca21067318bf63b9cc04604/Items%20Editing/Source-Destination/README.md</source>
       </version>
     </reapack>
   </category>
