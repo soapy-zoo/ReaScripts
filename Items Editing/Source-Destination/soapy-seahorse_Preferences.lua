@@ -1,4 +1,13 @@
--- @noindex
+-- @description Source-Destination Tools ("Seahorse")
+-- @version 0.2 
+-- @author the soapy zoo
+-- @about
+--   # Seahorse Source-Destination Tools 
+--   documentation will follow _soon(TM)_
+-- @provides
+--    [main] *.lua
+--    [nomain] soapy-seahorse_functions/*.lua
+--    [nomain] *.md
 --[[
 
 source-destination: preferences
