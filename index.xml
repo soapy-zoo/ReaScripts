@@ -182,6 +182,26 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Seahorse \u55356 ?\u57098 ? Tools for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Multitrack Source-Destination editing using REAPER's Fixed Item Lanes.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Prerequisites\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.sws-extension.org/"}}{\fldrslt{\ul
+SWS Extension
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab {\field{\*\fldinst{HYPERLINK "https://reapack.com/"}}{\fldrslt{\ul
+ReaPack
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab {\field{\*\fldinst{HYPERLINK "https://reapertoolkit.dev/#1_reapack"}}{\fldrslt{\ul
+Reaper Tookit (rtk)
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Set the following setting: {\i REAPER Preferences -> Editing Behavior -> Locked item ripple editing behavior: {\b Locked items are unaffected by ripple}}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab The scripts assume all source media / takes to reside in fixed item lanes. Comp Destination is the topmost lane.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab For multitrack editing, set all relevant tracks' grouping parameters to {\b Media/Razor Edit Lead} as well as {\b Media/Razor Edit Follow}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Known Limitations\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab So far, the scripts only respect symmetrical crossfades. Asymmetrical crossfades have to be edited manually.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Certain operations will cause muted items to be unmuted. This will be resolved shortly.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Snail \u55357 ?\u56332 ? Tools for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Lock items in Fixed Item Lanes when ripple editing.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Bat \u55358 ?\u56711 ? Tools for REAPER\par}
