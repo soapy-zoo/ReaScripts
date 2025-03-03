@@ -1,6 +1,7 @@
 # Seahorse 🌊 Tools for REAPER
 Multitrack Source-Destination editing using REAPER's Fixed Item Lanes.
 
+## Introduction
 https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 
 ## Prerequisites
@@ -9,7 +10,7 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 3. [Reaper Tookit (rtk)](https://reapertoolkit.dev/#1_reapack)
 4. Set the following setting: _REAPER Preferences -> Editing Behavior -> Locked item ripple editing behavior: **Locked items are unaffected by ripple**_
 5. The scripts assume all source media / takes to reside in fixed item lanes. Comp Destination is the topmost lane.
-6. For multitrack editing, set all relevant tracks' grouping parameters to **Media/Razor Edit Lead** as well as **Media/Razor Edit Follow**
+6. For multitrack editing, set all relevant tracks' _grouping parameters_ to _**Media/Razor Edit Lead**_ as well as _**Media/Razor Edit Follow**_
 7. Activate _Options -> **Offset overlapping items vertically**_ for better visibility
 
 ## Known Limitations
