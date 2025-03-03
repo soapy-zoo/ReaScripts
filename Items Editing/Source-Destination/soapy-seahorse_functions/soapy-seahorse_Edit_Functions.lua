@@ -34,7 +34,7 @@ local sf = require("soapy-seahorse_Fades_Functions")
 
 modulePath = ({r.get_action_context()})[2]:match("^.+[\\/]")
 package.path = modulePath .. "soapy-seahorse_functions/?.lua"
-local st = require("soapy-seahorse_Settings")
+local st = require("soapy-seahorse_Settings_Functions")
 
 local markerLabel_SrcIn
 local markerLabel_SrcOut
@@ -43,24 +43,24 @@ local markerLabel_DstOut
 local markerIndex_DstIn
 local markerIndex_Dstout
 
-local bool_ShowHoverWarnings
+local b_ShowHoverWarnings
 
 -- three and four point edits
 
 local xFadeLen
-local bool_AutoCrossfade
-local bool_MoveDstGateAfterEdit
-local bool_RemoveAllSourceGates
-local bool_TargetItemUnderMouse
-local bool_KeepLaneSolo
+local b_AutoCrossfade
+local b_MoveDstGateAfterEdit
+local b_RemoveAllSourceGates
+local b_TargetItemUnderMouse
+local b_KeepLaneSolo
 
 -- item extender and quick fade
 
-local bool_PreserveEditCursorPosition
-local bool_SelectRightItemAtCleanup
-local bool_AvoidCollision
-local bool_PreserveExistingCrossfade
-local bool_TargetMouseInsteadOfCursor
+local b_PreserveEditCursorPosition
+local b_SelectRightItemAtCleanup
+local b_AvoidCollision
+local b_PreserveExistingCrossfade
+local b_TargetMouseInsteadOfCursor
 
 local extensionAmount
 local collisionPadding
@@ -73,7 +73,7 @@ local xFadeShape
 -- three point edit --
 ----------------------
 
-function se.ThreePointEdit(bool_Ripple)
+function se.ThreePointEdit(b_Ripple)
 
     r.Undo_BeginBlock()
     r.PreventUIRefresh(1)
@@ -87,7 +87,7 @@ function se.ThreePointEdit(bool_Ripple)
 
     local rippleStateAll, rippleStatePer, trimContentState = se.GetEditStates()
 
-    if bool_Ripple then
+    if b_Ripple then
         if rippleStatePer == 0 then
             r.Main_OnCommand(41990, 0) -- Set ripple editing per track on
         end
@@ -100,7 +100,7 @@ function se.ThreePointEdit(bool_Ripple)
     local timeSelStart, timeSelEnd = se.GetTimeSelectionStartEnd()
     local loopStart, loopEnd = se.GetLoopStartEnd()
 
-    if bool_TargetItemUnderMouse then
+    if b_TargetItemUnderMouse then
         r.Main_OnCommand(40289, 0) -- Item: Unselect (clear selection of) all items
         r.Main_OnCommand(40528, 0) -- Item: Select item under mouse cursor
     end
@@ -118,7 +118,7 @@ function se.ThreePointEdit(bool_Ripple)
     r.SetOnlyTrackSelected(targetTrack)
 
     local tbl_PlayingLanes
-    if bool_KeepLaneSolo then
+    if b_KeepLaneSolo then
         tbl_PlayingLanes = se.GetLaneSolo(targetTrack)
     end
 
@@ -133,7 +133,7 @@ function se.ThreePointEdit(bool_Ripple)
 
     ---##### paste source to destination #####---
 
-    if bool_Ripple then
+    if b_Ripple then
         se.ToggleLockItemsInSourceLanes(1)
     end
 
@@ -142,7 +142,7 @@ function se.ThreePointEdit(bool_Ripple)
     r.Main_OnCommand(42790, 0) -- play only first lane / solo first lane (comp lane)
     r.Main_OnCommand(42398, 0) -- Items: paste items/tracks
 
-    if bool_Ripple then
+    if b_Ripple then
         se.ToggleLockItemsInSourceLanes(0)
     end
 
@@ -150,7 +150,7 @@ function se.ThreePointEdit(bool_Ripple)
 
     local cursorPos_end = r.GetCursorPosition()
 
-    if bool_AutoCrossfade then
+    if b_AutoCrossfade then
         -- go to start of pasted item, set fade
         r.GoToMarker(0, markerIndex_DstIn, false)
         se.SetCrossfade(xFadeLen)
@@ -158,23 +158,23 @@ function se.ThreePointEdit(bool_Ripple)
 
     se.RemoveSourceGates(-1, markerLabel_SrcIn, markerLabel_SrcOut)    -- remove src gates from newly pasted material
 
-    if not bool_AutoCrossfade then
+    if not b_AutoCrossfade then
         r.Main_OnCommand(40020, 0) -- Time Selection: Remove
     end
 
-    if bool_MoveDstGateAfterEdit then
+    if b_MoveDstGateAfterEdit then
         r.SetEditCurPos(cursorPos_end, false, false) -- go to end of pasted item
         se.SetDstGateIn(markerLabel_DstIn, markerIndex_DstIn)  -- move destination gate in to end of pasted material (assembly line style)
     end
 
-    if bool_RemoveAllSourceGates then
+    if b_RemoveAllSourceGates then
         se.RemoveSourceGates(0, markerLabel_SrcIn, markerLabel_SrcOut)
     end
 
     se.DeselectAllItems()
     r.SetEditCurPos(cursorPos_origin, false, false) -- go to original cursor position
 
-    if bool_KeepLaneSolo then
+    if b_KeepLaneSolo then
         se.SetLaneSolo(sourceItem, tbl_PlayingLanes)
     end
 
@@ -190,7 +190,7 @@ function se.ThreePointEdit(bool_Ripple)
 
     r.PreventUIRefresh(-1)
     r.UpdateArrange()
-    if bool_Ripple then
+    if b_Ripple then
         r.Undo_EndBlock("ReaPyr 3 point ripple", -1)
     else
         r.Undo_EndBlock("ReaPyr 3 point edit", -1)
@@ -224,7 +224,7 @@ function se.FourPointEdit()
     local timeSelStart, timeSelEnd = se.GetTimeSelectionStartEnd()
     local loopStart, loopEnd = se.GetLoopStartEnd()
 
-    if bool_TargetItemUnderMouse then
+    if b_TargetItemUnderMouse then
         r.Main_OnCommand(40289, 0) -- Item: Unselect (clear selection of) all items
         r.Main_OnCommand(40528, 0) -- Item: Select item under mouse cursor
     end
@@ -250,7 +250,7 @@ function se.FourPointEdit()
     r.SetOnlyTrackSelected(targetTrack)
 
     local tbl_PlayingLanes
-    if bool_KeepLaneSolo then
+    if b_KeepLaneSolo then
         tbl_PlayingLanes = se.GetLaneSolo(targetTrack)
     end
 
@@ -282,7 +282,7 @@ function se.FourPointEdit()
 
     local cursorPos_end = r.GetCursorPosition()
 
-    if bool_AutoCrossfade then
+    if b_AutoCrossfade then
         r.GoToMarker(0, markerIndex_DstIn, false) -- go to start of pasted item
         se.SetCrossfade(xFadeLen)
 
@@ -292,16 +292,16 @@ function se.FourPointEdit()
 
     se.RemoveSourceGates(-1, markerLabel_SrcIn, markerLabel_SrcOut)    -- remove src gates from newly pasted material
 
-    if not bool_AutoCrossfade then
+    if not b_AutoCrossfade then
         r.Main_OnCommand(40020, 0) -- Time Selection: Remove
     end
 
-    if bool_MoveDstGateAfterEdit then
+    if b_MoveDstGateAfterEdit then
         r.SetEditCurPos(cursorPos_end, false, false) -- go to end of pasted item
         se.SetDstGateIn(markerLabel_DstIn, markerIndex_DstIn)        -- move destination gate in to end of pasted material (assembly line style)
     end
 
-    if bool_RemoveAllSourceGates then
+    if b_RemoveAllSourceGates then
         se.RemoveSourceGates(0, markerLabel_SrcIn, markerLabel_SrcOut)
     end
 
@@ -310,7 +310,7 @@ function se.FourPointEdit()
     se.DeselectAllItems()
     r.SetEditCurPos(cursorPos_origin, false, false) -- go to original cursor position
 
-    if bool_KeepLaneSolo then
+    if b_KeepLaneSolo then
         se.SetLaneSolo(sourceItem, tbl_PlayingLanes)
     end
 
@@ -349,7 +349,7 @@ function se.ItemExtender()
   local item1GUID, item2GUID = se.ExtendItems(_, 1)
   if not item1GUID or not item2GUID then return end
 
-  if bool_SelectRightItemAtCleanup then
+  if b_SelectRightItemAtCleanup then
 
     local mediaItem2 = r.BR_GetMediaItemByGUID(0, item2GUID)
     if not mediaItem2 then return end
@@ -362,7 +362,7 @@ function se.ItemExtender()
   local restoreXFadeState = r.NamedCommandLookup("_SWS_RESTOREXFD")
   r.Main_OnCommand(restoreXFadeState, 0) -- SWS: Restore auto crossfade state
 
-  if bool_PreserveEditCursorPosition then
+  if b_PreserveEditCursorPosition then
     r.SetEditCurPos(curPos, false, false)
   end
 
@@ -380,7 +380,7 @@ function se.ExtendItems(scriptCommand_rx, newToggleState_rx)
   local _, _, _, _, itemGUID = sf.GetItemsNearMouse(cursorBias_Extender)
 
   if not itemGUID then
-    if bool_ShowHoverWarnings then se.ErrMsgHover() end
+    if b_ShowHoverWarnings then se.ErrMsgHover() end
     return
   end
 
@@ -391,12 +391,12 @@ function se.ExtendItems(scriptCommand_rx, newToggleState_rx)
   end
   for i = 1, #mediaItem do
     if not mediaItem[i] then
-      if bool_ShowHoverWarnings then se.ErrMsgHover() end
+      if b_ShowHoverWarnings then se.ErrMsgHover() end
       return
     end
   end
 
-  if bool_AvoidCollision then
+  if b_AvoidCollision then
 
     -- ## avoid collision: get item edges ## --
     local itemStart, itemEnd, itemFade = {}, {}, {}
@@ -427,10 +427,10 @@ function se.ExtendItems(scriptCommand_rx, newToggleState_rx)
 
   end
 
-  local bool_success = sf.LenghtenItem(mediaItem[1], 1, 1, extensionAmount)
-  bool_success = sf.LenghtenItem(mediaItem[2], 2, 1, extensionAmount)
+  local b_success = sf.LenghtenItem(mediaItem[1], 1, 1, extensionAmount)
+  b_success = sf.LenghtenItem(mediaItem[2], 2, 1, extensionAmount)
 
-  if bool_success then
+  if b_success then
     return itemGUID[1], itemGUID[2]
   else
     r.ShowMessageBox("Item Extender unsuccessful.", "sorry!", 0)
@@ -458,7 +458,7 @@ function se.QuickFade()
 
     -- ## get / set cursor position ## --
 
-    if bool_TargetMouseInsteadOfCursor then
+    if b_TargetMouseInsteadOfCursor then
         r.Main_OnCommand(40514, 0) -- View: Move edit cursor to mouse cursor (no snapping)
     end
 
@@ -480,7 +480,7 @@ function se.QuickFade()
 
     -- ## if requested: get fade length ## --
 
-    if bool_PreserveExistingCrossfade then
+    if b_PreserveExistingCrossfade then
 
         local success, fadeLen, fadeShape1, fadeShape2 = se.GetCrossfade(tbl_mediaItem, xFadeLen)
 
@@ -505,7 +505,7 @@ function se.QuickFade()
     -- ## perform crossfade ## --
     se.SetCrossfade2(curPos, xFadeLen)
 
-    if bool_PreserveExistingCrossfade then
+    if b_PreserveExistingCrossfade then
         se.ResetFadeShape(tbl_mediaItem, xFadeShape)
     end
 
@@ -579,17 +579,17 @@ function se.QuickFade_Cleanup(tbl_mediaItem, curPos, curPosOrigin, timeSelStart,
     se.SetTimeSelection(timeSelStart, timeSelEnd)
     se.SetLoopPoints(loopStart, loopEnd)
 
-    if bool_PreserveEditCursorPosition then
+    if b_PreserveEditCursorPosition then
         r.SetEditCurPos(curPosOrigin, false, false)
     else
         r.SetEditCurPos(curPos, false, false)
     end
 
     se.DeselectAllItems()
-    if bool_SelectRightItemAtCleanup then
+    if b_SelectRightItemAtCleanup then
 
         if not tbl_mediaItem then
-            if bool_ShowHoverWarnings then se.ErrMsgHover() end
+            if b_ShowHoverWarnings then se.ErrMsgHover() end
             return
         end
 
@@ -606,38 +606,38 @@ function GetSettings()
 
     local tbl_Settings = st.GetSettings()
 
-    markerLabel_SrcIn = tbl_Settings.markerLabel_SrcIn
-    markerLabel_SrcOut = tbl_Settings.markerLabel_SrcOut
-    markerLabel_DstIn =tbl_Settings.markerIndex_DstIn
-    markerLabel_DstOut = tbl_Settings.markerLabel_DstOut
-    markerIndex_DstIn = tonumber(tbl_Settings.markerIndex_DstIn)
-    markerIndex_Dstout = tonumber(tbl_Settings.markerIndex_DstOut)
+    markerLabel_SrcIn = tbl_Settings.s_markerLabel_SrcIn
+    markerLabel_SrcOut = tbl_Settings.s_markerLabel_SrcOut
+    markerLabel_DstIn =tbl_Settings.s_markerIndex_DstIn
+    markerLabel_DstOut = tbl_Settings.s_markerLabel_DstOut
+    markerIndex_DstIn = tonumber(tbl_Settings.i_markerIndex_DstIn)
+    markerIndex_Dstout = tonumber(tbl_Settings.i_markerIndex_DstOut)
 
-    bool_ShowHoverWarnings = tonumber(tbl_Settings.bool_ShowHoverWarnings)
+    b_ShowHoverWarnings = tonumber(tbl_Settings.b_ShowHoverWarnings)
 
     -- three and four point edits
 
     xFadeLen = tonumber(tbl_Settings.xFadeLen)
-    bool_AutoCrossfade = tonumber(tbl_Settings.bool_AutoCrossfade)
-    bool_MoveDstGateAfterEdit = tonumber(tbl_Settings.bool_MoveDstGateAfterEdit)
-    bool_RemoveAllSourceGates = tonumber(tbl_Settings.bool_RemoveAllSourceGates)
-    bool_TargetItemUnderMouse = tonumber(tbl_Settings.bool_EditTargetsItemUnderMouse)
-    bool_KeepLaneSolo = tonumber(tbl_Settings.bool_KeepLaneSolo)
+    b_AutoCrossfade = tonumber(tbl_Settings.b_AutoCrossfade)
+    b_MoveDstGateAfterEdit = tonumber(tbl_Settings.b_MoveDstGateAfterEdit)
+    b_RemoveAllSourceGates = tonumber(tbl_Settings.b_RemoveAllSourceGates)
+    b_TargetItemUnderMouse = tonumber(tbl_Settings.b_EditTargetsItemUnderMouse)
+    b_KeepLaneSolo = tonumber(tbl_Settings.b_KeepLaneSolo)
 
     -- item extender and quick fade
 
-    bool_PreserveEditCursorPosition = tonumber(tbl_Settings.bool_PreserveEditCursorPosition)
-    bool_SelectRightItemAtCleanup = tonumber(tbl_Settings.bool_SelectRightItemAtCleanup)
-    bool_AvoidCollision = tonumber(tbl_Settings.bool_AvoidCollision)
-    bool_PreserveExistingCrossfade = tonumber(tbl_Settings.bool_PreserveExistingCrossfade)
-    bool_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.bool_EditTargetsMouseInsteadOfCursor)
+    b_PreserveEditCursorPosition = tonumber(tbl_Settings.b_PreserveEditCursorPosition)
+    b_SelectRightItemAtCleanup = tonumber(tbl_Settings.b_SelectRightItemAtCleanup)
+    b_AvoidCollision = tonumber(tbl_Settings.b_AvoidCollision)
+    b_PreserveExistingCrossfade = tonumber(tbl_Settings.b_PreserveExistingCrossfade)
+    b_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.b_EditTargetsMouseInsteadOfCursor)
 
-    extensionAmount = tonumber(tbl_Settings.extensionAmount)
-    collisionPadding = tonumber(tbl_Settings.collisionPadding)
-    cursorBias_Extender = tonumber(tbl_Settings.cursorBias_Extender)
-    cursorBias_QuickFade = tonumber(tbl_Settings.cursorBias_QuickFade)
+    extensionAmount = tonumber(tbl_Settings.f_extensionAmount)
+    collisionPadding = tonumber(tbl_Settings.f_collisionPadding)
+    cursorBias_Extender = tonumber(tbl_Settings.f_cursorBias_Extender)
+    cursorBias_QuickFade = tonumber(tbl_Settings.f_cursorBias_QuickFade)
 
-    xFadeShape = tonumber(tbl_Settings.xFadeShape)
+    xFadeShape = tonumber(tbl_Settings.i_xFadeShape)
 
 end
 

@@ -30,10 +30,10 @@ local sf = {}
 
 local modulePath = ({r.get_action_context()})[2]:match("^.+[\\/]")
 package.path = modulePath .. "soapy-seahorse_functions/?.lua"
-local st = require("soapy-seahorse_Settings")
+local st = require("soapy-seahorse_Settings_Functions")
 
 -- settings used in this script:
-local bool_ShowHoverWarnings, bool_TransportAutoStop, bool_KeepCursorPosition, bool_RemoveFade
+local b_ShowHoverWarnings, b_TransportAutoStop, b_KeepCursorPosition, b_RemoveFade
 
 ------------------------------------------
 -- functions:: major audition functions --
@@ -57,11 +57,11 @@ function sf.AuditionCrossfade()
 
     r.Main_OnCommand(42478, 0) -- play only lane under mouse
 
-    local bool_success, item1GUID, item2GUID = sf.GetItemsNearMouse(cursorBias)
+    local b_success, item1GUID, item2GUID = sf.GetItemsNearMouse(cursorBias)
 
-    if bool_success then
+    if b_success then
 
-      if bool_RemoveFade then
+      if b_RemoveFade then
 
         auditioningItems1 = sf.GetGroupedItems(item1GUID)
         auditioningItems2 = sf.GetGroupedItems(item2GUID)
@@ -81,13 +81,13 @@ function sf.AuditionCrossfade()
       sf.ToggleItemMute(tbl_safeItems1, {}, 0)
       sf.ToggleItemMute(tbl_safeItems2, {}, 0)
 
-      sf.AuditionFade(preRoll, postRoll, bool_TransportAutoStop)
+      sf.AuditionFade(preRoll, postRoll, b_TransportAutoStop)
       AuditionCrossfade_CheckPlayState()
     else
-      if bool_ShowHoverWarnings then sf.ErrMsgHover() end
+      if b_ShowHoverWarnings then sf.ErrMsgHover() end
     end
 
-    if bool_KeepCursorPosition then
+    if b_KeepCursorPosition then
       r.SetEditCurPos(curPos, false, false)
     end
 
@@ -101,24 +101,24 @@ function sf.AuditionCrossfade()
 
     local playState = r.GetPlayState()
 
-    local bool_success = false
-    local bool_exit = false
+    local b_success = false
+    local b_exit = false
 
     if playState == 0 then -- Transport is stopped
 
       r.DeleteProjectMarker(0, 998, false)
 
-      if bool_RemoveFade then
+      if b_RemoveFade then
         for i = 1, #auditioningItems1 do
           sf.SetFade(auditioningItems1[i], 1, fadeLen1, fadeLenAuto1, fadeDir1, fadeShape1)
           sf.SetFade(auditioningItems2[i], 2, fadeLen2, fadeLenAuto2, fadeDir2, fadeShape2)
         end
       end
 
-      bool_exit = true
+      b_exit = true
     end
 
-    if bool_exit then return end
+    if b_exit then return end
 
     -- Schedule the function to run continuously
     r.defer(AuditionCrossfade_CheckPlayState)
@@ -142,7 +142,7 @@ function sf.AuditionFade_Crossfade(targetItem)
   local auditioningItems = {}
   local fadeLen, fadeLenAuto, fadeDir, fadeShape
 
-  local myItemGUID, bool_success
+  local myItemGUID, b_success
 
   function AuditionFade_Main()
 
@@ -165,14 +165,14 @@ function sf.AuditionFade_Crossfade(targetItem)
     end
 
     if targetItem == 1 then
-      bool_success, myItemGUID, _ = sf.GetItemsNearMouse(cursorBias)
+      b_success, myItemGUID, _ = sf.GetItemsNearMouse(cursorBias)
     elseif targetItem == 2 then
-      bool_success, _, myItemGUID = sf.GetItemsNearMouse(cursorBias)
+      b_success, _, myItemGUID = sf.GetItemsNearMouse(cursorBias)
     end
 
-    if bool_success then
+    if b_success then
 
-      if bool_RemoveFade then
+      if b_RemoveFade then
 
         auditioningItems = sf.GetGroupedItems(myItemGUID)
         fadeLen, fadeLenAuto, fadeDir, fadeShape, _ = sf.GetFade(myItemGUID, targetItem)
@@ -192,15 +192,15 @@ function sf.AuditionFade_Crossfade(targetItem)
       -- no need to pass along safe items:
       tbl_mutedItems = sf.ToggleItemMute(tbl_itemsToMute, {}, 1)
 
-      sf.AuditionFade(preRoll, postRoll, bool_TransportAutoStop)
+      sf.AuditionFade(preRoll, postRoll, b_TransportAutoStop)
 
       AuditionFade_CheckPlayState()
 
     else
-      if bool_ShowHoverWarnings then sf.ErrMsgHover() end
+      if b_ShowHoverWarnings then sf.ErrMsgHover() end
     end
 
-    if bool_KeepCursorPosition then
+    if b_KeepCursorPosition then
       r.SetEditCurPos(curPos, false, false)
     end
 
@@ -214,14 +214,14 @@ function sf.AuditionFade_Crossfade(targetItem)
 
     local playState = r.GetPlayState()
 
-    local bool_exit = false
+    local b_exit = false
 
     if playState == 0 then -- Transport is stopped
 
       sf.ToggleItemMute(tbl_mutedItems, {}, 0)
       r.DeleteProjectMarker(0, 998, false)
 
-      if bool_RemoveFade then
+      if b_RemoveFade then
         for i = 1, #auditioningItems do
           sf.SetFade(auditioningItems[i], targetItem, fadeLen, fadeLenAuto, fadeDir, fadeShape)
         end
@@ -230,10 +230,10 @@ function sf.AuditionFade_Crossfade(targetItem)
       r.PreventUIRefresh(-1)
       r.UpdateArrange()
 
-      bool_exit = true
+      b_exit = true
     end
 
-    if bool_exit then return end
+    if b_exit then return end
 
     -- Schedule the function to run continuously
     r.defer(AuditionFade_CheckPlayState)
@@ -278,9 +278,9 @@ function sf.AuditionFade_Original(targetItem)
 
     r.Main_OnCommand(42478, 0) -- play only lane under mouse
 
-    local bool_success, item1GUID, item2GUID = sf.GetItemsNearMouse(cursorBias)
+    local b_success, item1GUID, item2GUID = sf.GetItemsNearMouse(cursorBias)
 
-    if bool_success then
+    if b_success then
 
       rippleStateAll, rippleStatePer = sf.SaveEditStates() -- save autocrossfade state
 
@@ -294,15 +294,15 @@ function sf.AuditionFade_Original(targetItem)
 
       item1GUID_temp, item2GUID_temp, extensionAmountSeconds_temp, targetItem_temp, tbl_mutedItems = sf.ItemExtender(item1GUID, item2GUID, extensionAmountSeconds, targetItem, 1)
 
-      sf.AuditionFade(preRoll, postRoll, bool_TransportAutoStop)
+      sf.AuditionFade(preRoll, postRoll, b_TransportAutoStop)
 
       AuditionOriginal_CheckPlayState()
 
     else
-      if bool_ShowHoverWarnings then sf.ErrMsgHover() end
+      if b_ShowHoverWarnings then sf.ErrMsgHover() end
     end
 
-    if bool_KeepCursorPosition then
+    if b_KeepCursorPosition then
       r.SetEditCurPos(curPos, false, false)
     end
 
@@ -316,7 +316,7 @@ function sf.AuditionFade_Original(targetItem)
 
     local playState = r.GetPlayState()
 
-    local bool_exit = false
+    local b_exit = false
 
     if playState == 0 then -- Transport is stopped
 
@@ -329,11 +329,11 @@ function sf.AuditionFade_Original(targetItem)
       r.PreventUIRefresh(-1)
       r.UpdateArrange()
 
-      bool_exit = true
+      b_exit = true
 
     end
 
-    if bool_exit then return end
+    if b_exit then return end
 
     -- Schedule the function to run continuously
     r.defer(AuditionOriginal_CheckPlayState)
@@ -352,10 +352,10 @@ function GetSettings()
 
   local tbl_Settings = st.GetSettings()
 
-  bool_ShowHoverWarnings = tbl_Settings.bool_ShowHoverWarnings
-  bool_TransportAutoStop = tbl_Settings.bool_TransportAutoStop
-  bool_KeepCursorPosition = tbl_Settings.bool_KeepCursorPosition
-  bool_RemoveFade = tbl_Settings.bool_RemoveFade
+  b_ShowHoverWarnings = tbl_Settings.b_ShowHoverWarnings
+  b_TransportAutoStop = tbl_Settings.b_TransportAutoStop
+  b_KeepCursorPosition = tbl_Settings.b_KeepCursorPosition
+  b_RemoveFade = tbl_Settings.b_RemoveFade
 
 end
 
@@ -369,7 +369,7 @@ function sf.GetItemsNearMouse(cursorBias_rx, range_rx)
     range = 1
   end
 
-  local bool_success = false
+  local b_success = false
   local tbl_itemGUID = {}
 
   -- mouseX and transport location are compatible
@@ -404,8 +404,8 @@ function sf.GetItemsNearMouse(cursorBias_rx, range_rx)
   end
 
   if not tbl_itemGUID then
-    bool_success = false
-    return bool_success
+    b_success = false
+    return b_success
   end
 
   if tbl_itemGUID[1] == tbl_itemGUID[2] then
@@ -413,9 +413,9 @@ function sf.GetItemsNearMouse(cursorBias_rx, range_rx)
     return
   end
 
-  bool_success = sf.SetEditCurPosCenterEdges(tbl_itemGUID[1], tbl_itemGUID[2], cursorBias)
+  b_success = sf.SetEditCurPosCenterEdges(tbl_itemGUID[1], tbl_itemGUID[2], cursorBias)
 
-  return bool_success, tbl_itemGUID[1], tbl_itemGUID[2], pri, tbl_itemGUID
+  return b_success, tbl_itemGUID[1], tbl_itemGUID[2], pri, tbl_itemGUID
 
 end
 
@@ -598,10 +598,10 @@ end
 ---@param item1GUID_rx any
 ---@param item2GUID_rx any
 ---@param cursorBias_rx any
----@return boolean bool_success
+---@return boolean b_success
 function sf.SetEditCurPosCenterEdges(item1GUID_rx, item2GUID_rx, cursorBias_rx)
 
-  local bool_success = false
+  local b_success = false
 
   local tbl_itemGUID = {}
   tbl_itemGUID[1] = item1GUID_rx
@@ -635,13 +635,13 @@ function sf.SetEditCurPosCenterEdges(item1GUID_rx, item2GUID_rx, cursorBias_rx)
     newCurPos = newCurPos + (((itemEnd[1] - itemStart[2]) * cursorBias) / 2)
 
     r.SetEditCurPos(newCurPos, false, false)
-    bool_success = true
+    b_success = true
 
   else
-    bool_success = false
+    b_success = false
   end
 
-  return bool_success
+  return b_success
 
 end
 
@@ -710,7 +710,7 @@ function sf.LenghtenItem(mediaItem_rx, pri_rx, extendRestoreSwitch_rx, extension
   local extendRestoreSwitch = extendRestoreSwitch_rx
   local extensionAmountSeconds = extensionAmountSeconds_rx
 
-  local bool_success = false
+  local b_success = false
 
   r.Main_OnCommand(40289, 0) -- Deselect all items
   r.SetMediaItemSelected(mediaItem, true)
@@ -730,7 +730,7 @@ function sf.LenghtenItem(mediaItem_rx, pri_rx, extendRestoreSwitch_rx, extension
       r.BR_SetItemEdges(currentItem, itemStart, newEnd)
     end
 
-    bool_success = true
+    b_success = true
 
   -- ...and here
   elseif pri == 2 then
@@ -742,13 +742,13 @@ function sf.LenghtenItem(mediaItem_rx, pri_rx, extendRestoreSwitch_rx, extension
       r.BR_SetItemEdges(currentItem, newStart, itemEnd)
     end
 
-    bool_success = true
+    b_success = true
 
   end
 
   r.Main_OnCommand(40289, 0) -- Deselect all items
 
-  return bool_success, mediaItem, pri, extendRestoreSwitch
+  return b_success, mediaItem, pri, extendRestoreSwitch
 
 end
 
@@ -768,16 +768,16 @@ function sf.ToggleItemMute(tbl_mediaItemGUIDs_rx, tbl_safeItemsGUID_rx, muteStat
 
     for k = 1, #tbl_groupedItems do
 
-      local bool_foundSafeItem = false
+      local b_foundSafeItem = false
 
       -- for i = 1, #tbl_safeItemsGUID do
       --   if tbl_groupedItems[k] == tbl_safeItemsGUID[i] then
-      --     bool_foundSafeItem = true
+      --     b_foundSafeItem = true
       --     break
       --   end
       -- end
 
-      if not bool_foundSafeItem then
+      if not b_foundSafeItem then
         local mediaItem = r.BR_GetMediaItemByGUID(0, tbl_groupedItems[k])
         if mediaItem then
           table.insert(tbl_mutedItems, tbl_groupedItems[k])
@@ -794,11 +794,11 @@ end
 
 -------------------------------------------------------
 
-function sf.AuditionFade(preRoll_rx, postRoll_rx, bool_TransportAutoStop_rx)
+function sf.AuditionFade(preRoll_rx, postRoll_rx, b_TransportAutoStop_rx)
 
   local preRoll = preRoll_rx
   local postRoll = postRoll_rx
-  local bool_TransportAutoStop = bool_TransportAutoStop_rx
+  local b_TransportAutoStop = b_TransportAutoStop_rx
 
   local startPos, stopPos
 
@@ -812,7 +812,7 @@ function sf.AuditionFade(preRoll_rx, postRoll_rx, bool_TransportAutoStop_rx)
   
   r.DeleteProjectMarker(0, 998, false)
 
-  if bool_TransportAutoStop then
+  if b_TransportAutoStop then
     -- SWS marker actions are executed in ascending order of their marker indices.
     r.AddProjectMarker2(0, false, stopPos, stopPos, "!1016", 998, r.ColorToNative(10, 10, 10) | 0x1000000) -- sws action marker: Transport Stop
   end
@@ -1012,7 +1012,7 @@ function sf.ToggleItemMuteState(itemGUID_rx, extendRestoreSwitch_rx)
   local itemGUID = itemGUID_rx
   local extendRestoreSwitch = extendRestoreSwitch_rx
 
-  local bool_success = false
+  local b_success = false
 
   local mediaItem = r.BR_GetMediaItemByGUID(0, itemGUID)
   if not mediaItem then return end
@@ -1034,11 +1034,11 @@ function sf.ToggleItemMuteState(itemGUID_rx, extendRestoreSwitch_rx)
     r.SetMediaItemInfo_Value(currentItem, "B_MUTE", muteState)
   end
 
-  bool_success = true
+  b_success = true
 
   r.Main_OnCommand(40289, 0) -- Deselect all items
 
-  return bool_success, itemGUID, extendRestoreSwitch
+  return b_success, itemGUID, extendRestoreSwitch
 
 end
 

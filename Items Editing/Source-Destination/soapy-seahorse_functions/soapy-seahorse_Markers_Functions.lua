@@ -34,25 +34,25 @@ local sf = require("soapy-seahorse_Edit_Functions")
 
 modulePath = ({r.get_action_context()})[2]:match("^.+[\\/]")
 package.path = modulePath .. "soapy-seahorse_functions/?.lua"
-local st = require("soapy-seahorse_Settings")
+local st = require("soapy-seahorse_Settings_Functions")
 
-local bool_TargetItemUnderMouse, bool_TargetMouseInsteadOfCursor, markerLabel_SrcIn, markerLabel_SrcOut, markerLabel_DstIn, markerLabel_DstOut, markerColor_Src, markerColor_Dst, markerIndex_DstIn, markerIndex_DstOut, srcCol_R, srcCol_G, srcCol_B, dstCol_R, dstCol_G, dstCol_B
+local b_TargetItemUnderMouse, b_TargetMouseInsteadOfCursor, markerLabel_SrcIn, markerLabel_SrcOut, markerLabel_DstIn, markerLabel_DstOut, markerColor_Src, markerColor_Dst, markerIndex_DstIn, markerIndex_DstOut, srcCol_R, srcCol_G, srcCol_B, dstCol_R, dstCol_G, dstCol_B
 
 function GetSettings()
 
     local tbl_Settings = st.GetSettings()
 
-    bool_TargetItemUnderMouse = tonumber(tbl_Settings.bool_GatesTargetItemUnderMouse)
-    bool_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.bool_GatesTargetMouseInsteadOfCursor)
+    b_TargetItemUnderMouse = tonumber(tbl_Settings.b_GatesTargetItemUnderMouse)
+    b_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.b_GatesTargetMouseInsteadOfCursor)
 
-    markerLabel_SrcIn = tbl_Settings.markerLabel_SrcIn
-    markerLabel_SrcOut = tbl_Settings.markerLabel_SrcOut
-    markerLabel_DstIn = tbl_Settings.markerLabel_DstIn
-    markerLabel_DstOut = tbl_Settings.markerLabel_DstOut
-    markerIndex_DstIn = tonumber(tbl_Settings.markerIndex_DstIn)
-    markerIndex_DstOut = tonumber(tbl_Settings.markerIndex_DstOut)
-    markerColor_Src = tbl_Settings.markerColor_Src
-    markerColor_Dst = tbl_Settings.markerColor_Dst
+    markerLabel_SrcIn = tbl_Settings.s_markerLabel_SrcIn
+    markerLabel_SrcOut = tbl_Settings.s_markerLabel_SrcOut
+    markerLabel_DstIn = tbl_Settings.s_markerLabel_DstIn
+    markerLabel_DstOut = tbl_Settings.s_markerLabel_DstOut
+    markerIndex_DstIn = tonumber(tbl_Settings.i_markerIndex_DstIn)
+    markerIndex_DstOut = tonumber(tbl_Settings.i_markerIndex_DstOut)
+    markerColor_Src = tbl_Settings.c_markerColor_Src
+    markerColor_Dst = tbl_Settings.c_markerColor_Dst
 
     srcCol_R, srcCol_G, srcCol_B = sm.SplitRGB(markerColor_Src)
     dstCol_R, dstCol_G, dstCol_B = sm.SplitRGB(markerColor_Dst)
@@ -73,7 +73,7 @@ function sm.SetSourceGate(markerType)
     elseif markerType == 2 then markerLabel = markerLabel_SrcOut
     else sm.ErrMsg() return end
 
-    if bool_TargetItemUnderMouse then
+    if b_TargetItemUnderMouse then
         r.Main_OnCommand(40289, 0) -- Item: Unselect (clear selection of) all items
         r.Main_OnCommand(40528, 0) -- Item: Select item under mouse cursor
     end
@@ -105,7 +105,7 @@ function sm.SetSourceGate(markerType)
         -- Get the relative cursor position within the active take, even when the playhead is moving
         local cursorPos
 
-        if bool_TargetMouseInsteadOfCursor then
+        if b_TargetMouseInsteadOfCursor then
             _, cursorPos = r.BR_ItemAtMouseCursor()
         else
             cursorPos = (r.GetPlayState() == 0) and r.GetCursorPosition() or r.GetPlayPosition()
