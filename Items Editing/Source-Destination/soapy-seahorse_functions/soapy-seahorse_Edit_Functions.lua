@@ -244,10 +244,10 @@ function se.FourPointEdit()
     local sourceGateOut = se.GetSourceGate(sourceItem, markerLabel_SrcOut)
     if not sourceGateOut then return end
 
-    local dstInPos = se.GetDstGate(markerIndex_DstIn)
+    local dstInPos = se.GetDstGate(tonumber(markerIndex_DstIn)) -- this function expects a number!
     if not dstInPos then return end
 
-    local dstOutPos = se.GetDstGate(markerIndex_Dstout)
+    local dstOutPos = se.GetDstGate(tonumber(markerIndex_Dstout)) -- this function expects a number!
     if not dstOutPos then return end
 
     local targetTrack = r.GetMediaItem_Track(sourceItem)
@@ -340,6 +340,8 @@ end
 -------------------
 
 function se.ItemExtender()
+
+    GetSettings()
 
   r.Undo_BeginBlock()
   r.PreventUIRefresh(1)
@@ -448,6 +450,8 @@ end
 ----------------
 
 function se.QuickFade()
+
+    GetSettings()
 
     r.Undo_BeginBlock()
     r.PreventUIRefresh(1)

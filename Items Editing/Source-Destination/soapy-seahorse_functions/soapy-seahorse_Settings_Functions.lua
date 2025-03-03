@@ -142,6 +142,8 @@ local tbl_formerSettings = {
     markerLabel_DstOut = "DST_OUT",
     markerIndex_DstIn = 996,
     markerIndex_DstOut = 997,
+    i_markerIndex_DstIn = 996,
+    i_markerIndex_DstOut = 997,
     markerColor_Src = "255,0,0",        -- red
     markerColor_Dst = "22,141,195"   -- kind of blue
 }
@@ -197,7 +199,8 @@ function st.GetSettings()
             st.SetDefaultSettings()
         end
 
-        local settingValue = r.GetExtState(sectionName, k)
+        local settingValue
+        settingValue = r.GetExtState(sectionName, k)
         settingValue = ConvertSettings(k, settingValue)
         tbl_mySettings[k] = settingValue
     end
