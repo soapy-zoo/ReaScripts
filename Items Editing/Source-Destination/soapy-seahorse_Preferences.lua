@@ -1,5 +1,5 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.1 
+-- @version 0.2.2 
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
@@ -119,8 +119,11 @@ end
 
 function BoolToString(mybool)
 
-    if mybool then mybool = 'true'
-    else mybool = 'false' end
+    if mybool == true then
+        mybool = 'true'
+    elseif mybool == false or mybool == nil then
+        mybool = 'false'
+    end
 
     return mybool
 end
@@ -128,8 +131,6 @@ end
 ----------------------------------------------------------------------------------------------------------
 
 function Main()
-
-    GetSettings()
 
     local window = rtk.Window{borderless=false, title='Seahorse Source-Destination Settings', minh=750}
     local spacer = rtk.Text{'\n'}
@@ -139,7 +140,7 @@ function Main()
     ----------------------
 
     local general = {
-        init = function(_, screen)
+        init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -162,7 +163,7 @@ function Main()
             pBox:add(childBox)
 
             screen.widget = pBox
-            
+
             cb_ShowHoverWarnings.onchange = function()
                 r.SetExtState(sectionName, 'b_ShowHoverWarnings', BoolToString(cb_ShowHoverWarnings.value), true)
             end
@@ -175,7 +176,7 @@ function Main()
 
     local edit_markers = {
 
-        init = function(_, screen)
+        init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -202,9 +203,7 @@ function Main()
             pBox:add(childBox)
             pBox:add(rtk.Heading{'Source & Destination Gates'})
             pBox:add(childBox2)
-
-            screen.widget = pBox
-
+            
             cb_autoCrossfade.onchange = function()
                 r.SetExtState(sectionName, 'b_autoCrossfade', BoolToString(cb_autoCrossfade.value), true)
             end
@@ -220,6 +219,9 @@ function Main()
             cb_KeepLaneSolo.onchange = function()
                 r.SetExtState(sectionName, 'b_KeepLaneSolo', BoolToString(cb_KeepLaneSolo.value), true)
             end
+
+            screen.widget = pBox
+
         end
     }
 
@@ -229,7 +231,7 @@ function Main()
 
     local extend_fade = {
 
-        init = function(_, screen)
+        init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -313,7 +315,7 @@ function Main()
 
     local audition = {
 
-        init = function(_, screen)
+        init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -348,7 +350,7 @@ function Main()
 
     local advanced = {
 
-        init = function(_, screen)
+        init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
             pBox:add(rtk.Heading{'Advanced'})
             pBox:add(rtk.Text{'coming soon (TM)'})
@@ -403,4 +405,5 @@ function Main()
 
 end
 
+GetSettings()
 rtk.call(Main)

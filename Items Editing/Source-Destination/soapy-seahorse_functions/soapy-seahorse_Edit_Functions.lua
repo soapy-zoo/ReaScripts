@@ -75,6 +75,8 @@ local xFadeShape
 
 function se.ThreePointEdit(b_Ripple)
 
+    GetSettings()
+
     r.Undo_BeginBlock()
     r.PreventUIRefresh(1)
 
@@ -202,6 +204,8 @@ end
 ---------------------
 
 function se.FourPointEdit()
+
+    GetSettings()
 
     r.Undo_BeginBlock()
     r.PreventUIRefresh(1)
@@ -610,34 +614,34 @@ function GetSettings()
     markerLabel_SrcOut = tbl_Settings.s_markerLabel_SrcOut
     markerLabel_DstIn =tbl_Settings.s_markerIndex_DstIn
     markerLabel_DstOut = tbl_Settings.s_markerLabel_DstOut
-    markerIndex_DstIn = tonumber(tbl_Settings.i_markerIndex_DstIn)
-    markerIndex_Dstout = tonumber(tbl_Settings.i_markerIndex_DstOut)
+    markerIndex_DstIn = tbl_Settings.s_markerIndex_DstIn
+    markerIndex_Dstout = tbl_Settings.s_markerIndex_DstOut
 
-    b_ShowHoverWarnings = tonumber(tbl_Settings.b_ShowHoverWarnings)
+    b_ShowHoverWarnings = tbl_Settings.b_ShowHoverWarnings
 
     -- three and four point edits
 
-    xFadeLen = tonumber(tbl_Settings.f_xFadeLen)
-    b_AutoCrossfade = tonumber(tbl_Settings.b_AutoCrossfade)
-    b_MoveDstGateAfterEdit = tonumber(tbl_Settings.b_MoveDstGateAfterEdit)
-    b_RemoveAllSourceGates = tonumber(tbl_Settings.b_RemoveAllSourceGates)
-    b_TargetItemUnderMouse = tonumber(tbl_Settings.b_EditTargetsItemUnderMouse)
-    b_KeepLaneSolo = tonumber(tbl_Settings.b_KeepLaneSolo)
+    xFadeLen = tbl_Settings.f_xFadeLen
+    b_AutoCrossfade = tbl_Settings.b_AutoCrossfade
+    b_MoveDstGateAfterEdit = tbl_Settings.b_MoveDstGateAfterEdit
+    b_RemoveAllSourceGates = tbl_Settings.b_RemoveAllSourceGates
+    b_TargetItemUnderMouse = tbl_Settings.b_EditTargetsItemUnderMouse
+    b_KeepLaneSolo = tbl_Settings.b_KeepLaneSolo
 
     -- item extender and quick fade
 
-    b_PreserveEditCursorPosition = tonumber(tbl_Settings.b_PreserveEditCursorPosition)
-    b_SelectRightItemAtCleanup = tonumber(tbl_Settings.b_SelectRightItemAtCleanup)
-    b_AvoidCollision = tonumber(tbl_Settings.b_AvoidCollision)
-    b_PreserveExistingCrossfade = tonumber(tbl_Settings.b_PreserveExistingCrossfade)
-    b_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.b_EditTargetsMouseInsteadOfCursor)
+    b_PreserveEditCursorPosition = tbl_Settings.b_PreserveEditCursorPosition
+    b_SelectRightItemAtCleanup = tbl_Settings.b_SelectRightItemAtCleanup
+    b_AvoidCollision = tbl_Settings.b_AvoidCollision
+    b_PreserveExistingCrossfade = tbl_Settings.b_PreserveExistingCrossfade
+    b_TargetMouseInsteadOfCursor = tbl_Settings.b_EditTargetsMouseInsteadOfCursor
 
-    extensionAmount = tonumber(tbl_Settings.f_extensionAmount)
-    collisionPadding = tonumber(tbl_Settings.f_collisionPadding)
-    cursorBias_Extender = tonumber(tbl_Settings.f_cursorBias_Extender)
-    cursorBias_QuickFade = tonumber(tbl_Settings.f_cursorBias_QuickFade)
+    extensionAmount = tbl_Settings.f_extensionAmount
+    collisionPadding = tbl_Settings.f_collisionPadding
+    cursorBias_Extender = tbl_Settings.f_cursorBias_Extender
+    cursorBias_QuickFade = tbl_Settings.f_cursorBias_QuickFade
 
-    xFadeShape = tonumber(tbl_Settings.i_xFadeShape)
+    xFadeShape = tbl_Settings.i_xFadeShape
 
 end
 
@@ -1452,5 +1456,4 @@ end
 -- required --
 --------------
 
-GetSettings()
 return se

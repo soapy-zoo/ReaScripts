@@ -42,15 +42,15 @@ function GetSettings()
 
     local tbl_Settings = st.GetSettings()
 
-    b_TargetItemUnderMouse = tonumber(tbl_Settings.b_GatesTargetItemUnderMouse)
-    b_TargetMouseInsteadOfCursor = tonumber(tbl_Settings.b_GatesTargetMouseInsteadOfCursor)
+    b_TargetItemUnderMouse = tbl_Settings.b_GatesTargetItemUnderMouse
+    b_TargetMouseInsteadOfCursor = tbl_Settings.b_GatesTargetMouseInsteadOfCursor
 
     markerLabel_SrcIn = tbl_Settings.s_markerLabel_SrcIn
     markerLabel_SrcOut = tbl_Settings.s_markerLabel_SrcOut
     markerLabel_DstIn = tbl_Settings.s_markerLabel_DstIn
     markerLabel_DstOut = tbl_Settings.s_markerLabel_DstOut
-    markerIndex_DstIn = tonumber(tbl_Settings.i_markerIndex_DstIn)
-    markerIndex_DstOut = tonumber(tbl_Settings.i_markerIndex_DstOut)
+    markerIndex_DstIn = tbl_Settings.s_markerIndex_DstIn
+    markerIndex_DstOut = tbl_Settings.s_markerIndex_DstOut
     markerColor_Src = tbl_Settings.c_markerColor_Src
     markerColor_Dst = tbl_Settings.c_markerColor_Dst
 

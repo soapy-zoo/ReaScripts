@@ -82,8 +82,8 @@ local tbl_defaultSettings = {
     s_markerLabel_SrcOut = "SRC_OUT",
     s_markerLabel_DstIn = "DST_IN",
     s_markerLabel_DstOut = "DST_OUT",
-    i_markerIndex_DstIn = 996,
-    i_markerIndex_DstOut = 997,
+    s_markerIndex_DstIn = '996',
+    s_markerIndex_DstOut = '997',
     c_markerColor_Src = "255,0,0",        -- red
     c_markerColor_Dst = "22,141,195"   -- kind of blue
 }
