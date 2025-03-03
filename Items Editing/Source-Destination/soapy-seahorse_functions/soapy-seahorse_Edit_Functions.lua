@@ -617,7 +617,7 @@ function GetSettings()
 
     -- three and four point edits
 
-    xFadeLen = tonumber(tbl_Settings.xFadeLen)
+    xFadeLen = tonumber(tbl_Settings.f_xFadeLen)
     b_AutoCrossfade = tonumber(tbl_Settings.b_AutoCrossfade)
     b_MoveDstGateAfterEdit = tonumber(tbl_Settings.b_MoveDstGateAfterEdit)
     b_RemoveAllSourceGates = tonumber(tbl_Settings.b_RemoveAllSourceGates)
