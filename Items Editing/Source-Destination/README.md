@@ -1,15 +1,3 @@
-<!---
--- @description Source-Destination Tools ("Seahorse")
--- @version 0.2 
--- @author the soapy zoo
--- @about
---   # Seahorse Source-Destination Tools 
---   documentation will follow _soon(TM)_
--- @provides
---    [main] *.lua
---    [nomain] soapy-seahorse_functions/*.lua
---    [nomain] *.md
--->
 # soapy-seahorse Source-Destination
 The seahorse scripts provide tools for two multitrack workflows using REAPER:
 
