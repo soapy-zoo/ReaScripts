@@ -34,6 +34,7 @@ local st = require("soapy-seahorse_Settings_Functions")
 
 -- settings used in this script:
 local b_ShowHoverWarnings, b_TransportAutoStop, b_KeepCursorPosition, b_RemoveFade
+local f_preRoll, f_postRoll = 2, 2
 
 ------------------------------------------
 -- functions:: major audition functions --
@@ -42,7 +43,9 @@ local b_ShowHoverWarnings, b_TransportAutoStop, b_KeepCursorPosition, b_RemoveFa
 
 function sf.AuditionCrossfade()
 
-  local preRoll, postRoll, cursorBias = 2, 2, 1
+  GetSettings()
+
+  local preRoll, postRoll, cursorBias = f_preRoll, f_postRoll, 1
 
   local auditioningItems1, auditioningItems2 = {}, {}
   local fadeLen1, fadeLenAuto1, fadeDir1, fadeShape1
@@ -136,7 +139,9 @@ end
 
 function sf.AuditionFade_Crossfade(targetItem)
 
-  local preRoll, postRoll, cursorBias = 2, 2, 1
+  GetSettings()
+
+  local preRoll, postRoll, cursorBias = f_preRoll, f_postRoll, 1
 
   local tbl_mutedItems = {}
   local auditioningItems = {}
@@ -155,12 +160,10 @@ function sf.AuditionFade_Crossfade(targetItem)
 
     -- this will be taken care of later (TM)
     if targetItem == 1 then
-      preRoll = 2
       postRoll = 0
       cursorBias = 2
     elseif targetItem == 2 then
       preRoll = 0
-      postRoll = 2
       cursorBias = 0
     end
 
@@ -251,7 +254,9 @@ end
 
 function sf.AuditionFade_Original(targetItem)
 
-  local preRoll, postRoll, cursorBias, extensionAmountSeconds = 2, 2, 1, 2
+  GetSettings()
+
+  local preRoll, postRoll, cursorBias, extensionAmountSeconds = f_preRoll, f_postRoll, 1, f_preRoll
 
   local item1GUID_temp, item2GUID_temp, extensionAmountSeconds_temp, targetItem_temp
   local tbl_mutedItems = {}
@@ -356,6 +361,9 @@ function GetSettings()
   b_TransportAutoStop = tbl_Settings.b_TransportAutoStop
   b_KeepCursorPosition = tbl_Settings.b_KeepCursorPosition
   b_RemoveFade = tbl_Settings.b_RemoveFade
+
+  f_preRoll = tbl_Settings.f_preRoll
+  f_postRoll = tbl_Settings.f_postRoll
 
 end
 
@@ -1143,5 +1151,4 @@ end
 -- required --
 --------------
 
-GetSettings()
 return sf

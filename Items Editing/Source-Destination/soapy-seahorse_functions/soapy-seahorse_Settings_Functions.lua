@@ -67,6 +67,9 @@ local tbl_defaultSettings = {
     b_KeepCursorPosition = 1,                 -- false: script will leave edit cursor at the center of the fade
     b_RemoveFade = false,                        -- audition without fade
 
+    f_preRoll = 2,
+    f_postRoll = 2,
+
     -------------------------------
     -- marker functions settings --
     -------------------------------

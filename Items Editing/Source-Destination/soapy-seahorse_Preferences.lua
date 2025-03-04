@@ -1,9 +1,13 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.5
+-- @version 0.2.6
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
 --   documentation will follow _soon(TM)_
+-- @changelog
+--    *audition pre & post roll accessible via preferences
+--    *added button to trash all preferences
+--    *minor usability improvements
 -- @provides
 --    [main] *.lua
 --    [nomain] soapy-seahorse_functions/*.lua
@@ -65,6 +69,8 @@ i_xFadeShape,
 b_TransportAutoStop,
 b_KeepCursorPosition,
 b_RemoveFade,
+f_preRoll,
+f_postRoll,
 b_GatesTargetItemUnderMouse,
 b_GatesTargetMouseInsteadOfCursor,
 s_markerLabel_SrcIn,
@@ -102,6 +108,8 @@ function GetSettings()
     b_TransportAutoStop = tbl_Settings.b_TransportAutoStop
     b_KeepCursorPosition = tbl_Settings.b_KeepCursorPosition
     b_RemoveFade = tbl_Settings.b_RemoveFade
+    f_preRoll = tbl_Settings.f_preRoll
+    f_postRoll = tbl_Settings.f_postRoll
     b_GatesTargetItemUnderMouse = tbl_Settings.b_GatesTargetItemUnderMouse
     b_GatesTargetMouseInsteadOfCursor = tbl_Settings.b_GatesTargetMouseInsteadOfCursor
     s_markerLabel_SrcIn = tbl_Settings.s_markerLabel_SrcIn
@@ -151,7 +159,7 @@ function Main()
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
-            local cb_ShowHoverWarnings = rtk.CheckBox{label='Show warning messages (this is helpful if you\'re using the scripts for the first time)', value=b_ShowHoverWarnings}
+            local cb_ShowHoverWarnings = rtk.CheckBox{label='Show warning messages \n(this is helpful if you\'re using the scripts for the first time)', value=b_ShowHoverWarnings}
 
             local en_xFadeLen = rtk.Entry{placeholder='Default Crossfade Length', textwidth=3.1, value=f_xFadeLen}
             local tx_xFadeLen = rtk.Text{'Default Crossfade Length (seconds)'}
@@ -263,13 +271,23 @@ function Main()
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
-            local cb_PreserveEditCursorPosition = rtk.CheckBox{label='Preserve edit cursor position: If unchecked, cursor will jump to center between items', value=b_PreserveEditCursorPosition}
+            local cb_PreserveEditCursorPosition = rtk.CheckBox{label='Preserve edit cursor position', value=b_PreserveEditCursorPosition}
+
+            if b_PreserveEditCursorPosition then
+                cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+            else
+                cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center between items')
+            end
             local cb_SelectRightItemAtCleanup = rtk.CheckBox{label='Keep right item selected at cleanup', value=b_SelectRightItemAtCleanup}
             local cb_AvoidCollision = rtk.CheckBox{label='Avoid Collision (avoid overlap of more than 2 items)', value=b_AvoidCollision}
             local cb_PreserveExistingCrossfade = rtk.CheckBox{label='Preserve existing crossfade\'s length & shape', value=b_PreserveExistingCrossfade}
-            local cb_EditTargetsMouseInsteadOfCursor = rtk.CheckBox{label='Set fade at mouse position. If unchecked, fade will be set at edit cursor position.', value = b_EditTargetsMouseInsteadOfCursor}
-            local sl_cursorBias_Extender = rtk.Slider{placeholder='Cursor Bias Extender', color='purple', min=0.0, max=1.0, step=0.02, value=f_cursorBias_Extender}
-            local sl_cursorBias_QuickFade = rtk.Slider{placeholder='Cursor Bias Quick Fade', color='purple', min=0.0, max=1.0, step=0.02, value=f_cursorBias_QuickFade}
+            local cb_EditTargetsMouseInsteadOfCursor = rtk.CheckBox{label='Set fade at mouse position', value = b_EditTargetsMouseInsteadOfCursor}
+            if b_EditTargetsMouseInsteadOfCursor then
+                cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)')
+            else
+                cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at edit cursor position')
+            end
+
             local en_extensionAmount = rtk.Entry{placeholder='extension Amount (seconds)', textwidth=3.1, value=f_extensionAmount}
             local tx_extensionAmount = rtk.Text{'Extension Amount (seconds)'}
             local bt_extensionAmount = rtk.Button{label='Apply', color='DimGrey'}
@@ -282,26 +300,6 @@ function Main()
             childBox:add(cb_AvoidCollision)
             childBox:add(cb_PreserveExistingCrossfade)
             childBox:add(cb_EditTargetsMouseInsteadOfCursor)
-
-            -- childBox:add(spacer)
-
-            -- local slBox11 = rtk.HBox{spacing=5, valign='center'}
-            -- slBox11:add(rtk.Text{'Left'})
-            -- slBox11:add(sl_cursorBias_Extender)
-            -- slBox11:add(rtk.Text{'Right'})
-            -- local slBox1 = rtk.VBox{}
-            -- slBox1:add(rtk.Text{'Cursor Bias Item Extender:'})
-            -- slBox1:add(slBox11)
-            -- childBox:add(slBox1)
-
-            -- local slBox22 = rtk.HBox{spacing=5, valign='center'}
-            -- slBox22:add(rtk.Text{'Left'})
-            -- slBox22:add(sl_cursorBias_QuickFade)
-            -- slBox22:add(rtk.Text{'Right'})
-            -- local slBox2 = rtk.VBox{}
-            -- slBox2:add(rtk.Text{'Cursor Bias Quick Fade:'})
-            -- slBox2:add(slBox22)
-            -- childBox:add(slBox2)
 
             childBox:add(spacer)
 
@@ -324,6 +322,11 @@ function Main()
 
             cb_PreserveEditCursorPosition.onchange = function()
                 r.SetExtState(sectionName, 'b_PreserveEditCursorPosition', BoolToString(cb_PreserveEditCursorPosition.value), true)
+                if cb_PreserveEditCursorPosition.value then
+                    cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                else
+                    cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center between items')
+                end
             end
             cb_SelectRightItemAtCleanup.onchange = function()
                 r.SetExtState(sectionName, 'b_SelectRightItemAtCleanup', BoolToString(cb_SelectRightItemAtCleanup.value), true)
@@ -336,6 +339,11 @@ function Main()
             end
             cb_EditTargetsMouseInsteadOfCursor.onchange = function()
                 r.SetExtState(sectionName, 'b_EditTargetsMouseInsteadOfCursor', BoolToString(cb_EditTargetsMouseInsteadOfCursor.value), true)
+                if cb_EditTargetsMouseInsteadOfCursor.value then
+                    cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)')
+                else
+                    cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at edit cursor position')
+                end
             end
 
             -- entry and button handling
@@ -378,13 +386,59 @@ function Main()
             local pBox = rtk.VBox{margin=10, spacing=8}
 
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
-            local cb_TransportAutoStop = rtk.CheckBox{label='Stop transport automatically after auditioning', value=b_TransportAutoStop}
-            local cb_KeepCursorPosition = rtk.CheckBox{label='Preserve edit cursor position: If unchecked, cursor will jump to center of the fade', value=b_KeepCursorPosition}
+            local cb_TransportAutoStop = rtk.CheckBox{label='Auto stop transport after auditioning', value=b_TransportAutoStop}
+            local cb_KeepCursorPosition = rtk.CheckBox{label='Preserve edit cursor position', value=b_KeepCursorPosition}
+            if b_KeepCursorPosition then
+                cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+            else
+                cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center of fade')
+            end
             local cb_RemoveFade = rtk.CheckBox{label='Audition without fade', value=b_RemoveFade}
+            if b_RemoveFade then
+                cb_RemoveFade:attr('label', 'Audition without fade\nFade is temporarily removed for auditioning')
+            else
+                cb_RemoveFade:attr('label', 'Audition without fade\nAuditions the fade as-is')
+            end
+
+            local sl_preRoll = rtk.Slider{placeholder='Audition Pre Roll', color='MediumOrchid', min=0.0, max=8.0, step=0.02, value=f_preRoll}
+            local en_preRoll = rtk.Entry{textwidth=3.1, value=f_preRoll}
+            local bt_preRoll = rtk.Button{label='Apply', color='DimGrey'}
+
+            local sl_postRoll = rtk.Slider{placeholder='Audition Post Roll', color='MediumOrchid', min=0.0, max=8.0, step=0.02, value=f_postRoll}
+            local en_postRoll = rtk.Entry{textwidth=3.1, value=f_postRoll}
+            local bt_postRoll = rtk.Button{label='Apply', color='DimGrey'}
+
+            local slBox11 = rtk.HBox{spacing=5, valign='center'}
+            slBox11:add(rtk.Text{'Short'})
+            slBox11:add(sl_preRoll)
+            slBox11:add(rtk.Text{'Long'})
+            local slBox1 = rtk.VBox{}
+            slBox1:add(rtk.Text{'Audition Pre Roll'})
+            slBox1:add(slBox11)
+            local slBox111 = rtk.HBox{spacing=5, valign='center'}
+            slBox111:add(en_preRoll)
+            slBox111:add(bt_preRoll)
+            slBox1:add(slBox111)
+
+            local slBox22 = rtk.HBox{spacing=5, valign='center'}
+            slBox22:add(rtk.Text{'Short'})
+            slBox22:add(sl_postRoll)
+            slBox22:add(rtk.Text{'Long'})
+            local slBox2 = rtk.VBox{}
+            slBox2:add(rtk.Text{'Audition Post Roll'})
+            slBox2:add(slBox22)
+            local slBox222 = rtk.HBox{spacing=5, valign='center'}
+            slBox222:add(en_postRoll)
+            slBox222:add(bt_postRoll)
+            slBox2:add(slBox222)
 
             childBox:add(cb_TransportAutoStop)
             childBox:add(cb_KeepCursorPosition)
             childBox:add(cb_RemoveFade)
+            childBox:add(spacer)
+            childBox:add(slBox1)
+            childBox:add(spacer)
+            childBox:add(slBox2)
 
             pBox:add(rtk.Heading{'Fade Audition'})
             pBox:add(childBox)
@@ -396,9 +450,74 @@ function Main()
             end
             cb_KeepCursorPosition.onchange = function()
                 r.SetExtState(sectionName, 'b_KeepCursorPosition', BoolToString(cb_KeepCursorPosition.value), true)
+                if cb_KeepCursorPosition.value then
+                    cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                else
+                    cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center of fade')
+                end
             end
             cb_RemoveFade.onchange = function()
                 r.SetExtState(sectionName, 'b_RemoveFade', BoolToString(cb_RemoveFade.value), true)
+                if cb_RemoveFade.value then
+                    cb_RemoveFade:attr('label', 'Audition without fade\nFade is temporarily removed for auditioning')
+                else
+                    cb_RemoveFade:attr('label', 'Audition without fade\nAuditions the fade as-is')
+                end
+            end
+
+            local en_preRoll_state, en_postRoll_state = f_preRoll, f_postRoll
+            sl_preRoll.onchange = function()
+                en_preRoll_state = sl_preRoll.value
+                en_preRoll:attr('value', tostring(en_preRoll_state))
+                r.SetExtState(sectionName, 'f_preRoll', en_preRoll_state, true)
+                bt_preRoll:animate{'color', dst='green'}
+            end
+
+            en_preRoll.onchange = function()
+                en_preRoll_state = en_preRoll.value
+                if type(tonumber(en_preRoll_state)) == "number" and en_preRoll_state == en_preRoll_state then
+                    sl_preRoll:attr('value', en_preRoll.value)
+                    bt_preRoll:animate{'color', dst='crimson'}
+                else
+                    ErrMsgNumber()
+                    bt_preRoll:attr('color', 'crimson')
+                end
+            end
+
+            bt_preRoll.onclick = function()
+                if type(tonumber(en_preRoll_state)) == "number" and en_preRoll_state == en_preRoll_state then
+                    r.SetExtState(sectionName, 'f_preRoll', en_preRoll_state, true)
+                    bt_preRoll:attr('color', 'green')
+                else
+                    ErrMsgNumber()
+                end
+            end
+
+            sl_postRoll.onchange = function()
+                en_postRoll_state = sl_postRoll.value
+                en_postRoll:attr('value', tostring(en_postRoll_state))
+                r.SetExtState(sectionName, 'f_postRoll', en_postRoll_state, true)
+                bt_postRoll:animate{'color', dst='green'}
+            end
+
+            en_postRoll.onchange = function()
+                en_postRoll_state = en_postRoll.value
+                if type(tonumber(en_postRoll_state)) == "number" and en_postRoll_state == en_postRoll_state then
+                    sl_postRoll:attr('value', en_postRoll.value)
+                    bt_postRoll:animate{'color', dst='crimson'}
+                else
+                    bt_postRoll:attr('color', 'crimson')
+                    ErrMsgNumber()
+                end
+            end
+
+            bt_postRoll.onclick = function()
+                if type(tonumber(en_postRoll_state)) == "number" and en_postRoll_state == en_postRoll_state then
+                    r.SetExtState(sectionName, 'f_postRoll', en_postRoll_state, true)
+                    bt_postRoll:attr('color', 'green')
+                else
+                    ErrMsgNumber()
+                end
             end
         end
     }
@@ -411,9 +530,15 @@ function Main()
 
         init = function(app, screen)
             local pBox = rtk.VBox{margin=10, spacing=8}
+            local bt_trashSettings = rtk.Button{label='Trash Settings', color='crimson'}
             pBox:add(rtk.Heading{'Advanced'})
-            pBox:add(rtk.Text{'coming soon (TM)'})
+            pBox:add(rtk.Text{'more features coming soon (TM)'})
+            pBox:add(bt_trashSettings)
             screen.widget = pBox
+            bt_trashSettings.onclick = function()
+                st.DeleteAllSettings(true)
+                bt_trashSettings:animate{'color', dst='green'}
+            end
         end
     }
 
