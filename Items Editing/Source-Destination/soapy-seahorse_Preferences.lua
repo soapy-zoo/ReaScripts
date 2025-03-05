@@ -1,5 +1,3 @@
--- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --
-
 -- @description Source-Destination Tools ("Seahorse")
 -- @version 0.2.7
 -- @author the soapy zoo
