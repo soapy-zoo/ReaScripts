@@ -42,28 +42,29 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 
 ### 🎧 Fade Audition
 
-Hover the mouse over any item. 
-To hear the fade closest to the mouse pointer, run one of the scripts:
-<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ```AuditionXFade``` : You will hear the crossfade.
-<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ```AuditionXIn``` : You will hear material up to the fade.
-<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ```AuditionXOut``` : You will hear material after the fade.
-<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ```AuditionOIn``` : You will hear the _left_ side material _extended past_ the fade.
-<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - ```AuditionOOut``` : You will hear the _right_ side material _extended before_ the fade.
+This one is the easiest!
+
+1. **Hover the mouse near an item fade and run one of the scripts:**
+<br> &nbsp;&nbsp;&nbsp; - ```AuditionXFade``` : You will hear the crossfade.
+<br> &nbsp;&nbsp;&nbsp; - ```AuditionXIn``` : You will hear material up to the fade.
+<br> &nbsp;&nbsp;&nbsp; - ```AuditionXOut``` : You will hear material after the fade.
+<br> &nbsp;&nbsp;&nbsp; - ```AuditionOIn``` : You will hear the _left_ side material _extended past_ the fade.
+<br> &nbsp;&nbsp;&nbsp; - ```AuditionOOut``` : You will hear the _right_ side material _extended before_ the fade.
 
 Pre-roll and post-roll times are editable in the user preferences. More to come.
 
 ### 🎚️ Quick Fade Edit
 
-You might want to turn on ripple mode **(and off, after you're done)**. :)
+1. **Things to note**
+<br> You might want to turn on ripple mode **(and off, after you're done)**. :) Consider having a look at the Snail 🐌 Tools which might come in handy when **ripple editing** with media in fixed item lanes.
 <br> Activate _Options -> **Offset overlapping items vertically**_ for better visibility. 
-<br> Consider having a look at the Snail 🐌 Tools which might come in handy when ripple editing with media in fixed item lanes.
 
-1. **Line up items at the cut.**
-<br> To make the waveform visible, use the script ```ExtendItems```.
-<br> Hover over any item near its edge and run the script in order to extend the items' ends incrementally in opposite directions.
+2. **Line up items at the cut.**
+<br> Hover over any item near its edge and run the script ```ExtendItems```.
+<br> This will extend the items' ends incrementally in opposite directions and thus make the waveforms visible.
 
-2. **Perform the Fade!**
-<br> Run the script ```QuickFade``` to place a quick standard fade at your mouse position. Sculpt the fade to taste.
+3. **Perform the Fade!**
+<br> Run the script ```QuickFade``` to place a standard fade at your mouse position. Sculpt the fade to taste.
 
 Standard fade length and extension increments are editable in the user preferences.
 
@@ -80,6 +81,10 @@ Find all preferences concerning the seahorse scripts by running ```soapy-seahors
 
 # Snail 🐌 Tools for REAPER
 Lock items in Fixed Item Lanes when ripple editing. Useful complementary scripts to the source-destination workflow presented above.
+
+## ❗ Important
+Head to _REAPER Preferences -> Editing Behavior_ and set  _Locked item ripple editing behavior: **Locked items are unaffected by ripple**_.
+Otherwise, the scripts will not work.
 
 # Bat 🦇 Tools for REAPER
 Quickly move items around using sync points.
