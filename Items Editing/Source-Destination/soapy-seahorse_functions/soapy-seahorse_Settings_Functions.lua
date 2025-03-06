@@ -5,7 +5,7 @@ source-destination: settings
 
 This file is part of the soapy-seahorse package.
 
-(C) 2024 the soapy zoo
+(C) 2025 the soapy zoo
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -85,8 +85,8 @@ local tbl_defaultSettings = {
     s_markerLabel_SrcOut = "SRC_OUT",
     s_markerLabel_DstIn = "DST_IN",
     s_markerLabel_DstOut = "DST_OUT",
-    s_markerIndex_DstIn = '996',
-    s_markerIndex_DstOut = '997',
+    s_markerIndex_DstIn = '998',
+    s_markerIndex_DstOut = '999',
     c_markerColor_Src = "255,0,0",        -- red
     c_markerColor_Dst = "22,141,195"   -- kind of blue
 }
