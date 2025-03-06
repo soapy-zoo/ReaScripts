@@ -291,7 +291,7 @@ Reaper Toolkit (rtk)
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u55356 ?\u57119 ? How it works\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Make sure...\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \u10004 ?\u65039 ? to read the {\b prerequisites} carefully.  \u10004 ?\u65039 ? your track groups' {\f1 Razor Edit Lead / Follow} parameters are set up as desired.  \u10004 ?\u65039 ? your source media is organized in {\b fixed item lanes} and there is at least {\b one empty lane} at the top. This will be your destination.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u9986 ?\u65039 ? 3-Point Edit\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u9986 ?\u65039 ? 3- and 4-Point Edit\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Place the source markers in the desired area of your source take.}  Select the source item (the lane does not have to be active). Place the edit cursor and run the scripts {\f1 SetSrcIn} or {\f1 SetSrcOut} respectively.  Switch to 'fast mode' in preferences where you can place source markers simply by hovering over the item.\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Set one or two destination markers.}  Place the edit cursor and run the scripts {\f1 SetDstIn} or {\f1 SetDstOut} respectively.\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Perform the Edit!}  Keep the source item selected, then run one of the three scripts:  - {\f1 3pointNoRipple}  - {\f1 3pointRipple}  - {\f1 4point}\sa180\par}
