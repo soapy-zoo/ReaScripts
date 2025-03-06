@@ -262,7 +262,9 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Introduction\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u55357 ?\u56613 ? Features\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \u9986 ?\u65039 ? Three-point and four-point multitrack source-destination editing  \u55356 ?\u57255 ? Fade auditioning and quick editing using single keystrokes  \u55357 ?\u56453 ? extensive user preferences editable via GUI\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Three-point and four-point multitrack source-destination editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Fade auditioning and quick editing using single keystrokes\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Extensive user preferences editable via GUI\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u9881 ?\u65039 ? Prerequisites\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.sws-extension.org/"}}{\fldrslt{\ul
 SWS Extension
