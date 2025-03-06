@@ -54,7 +54,9 @@ Pre-roll and post-roll times are editable in the user preferences. More to come.
 
 ### 🎚️ Quick Fade Edit
 
-You might want to turn on ripple mode **(and off, after you're done)**. Activate _Options -> **Offset overlapping items vertically**_ for better visibility. Consider having a look at the Snail 🐌 Tools which might come in handy when ripple editing with media in fixed item lanes.
+You might want to turn on ripple mode **(and off, after you're done)**. :)
+<br> Activate _Options -> **Offset overlapping items vertically**_ for better visibility. 
+<br> Consider having a look at the Snail 🐌 Tools which might come in handy when ripple editing with media in fixed item lanes.
 
 1. **Line up items at the cut.**
 <br> To make the waveform visible, use the script ```ExtendItems```.
