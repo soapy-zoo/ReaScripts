@@ -3,7 +3,13 @@
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
---   documentation will follow _soon(TM)_
+--   Multitrack Source-Destination editing using REAPER's Fixed Item Lanes.
+--   ## 🔥 Features
+--   - Three-point and four-point multitrack source-destination editing
+--   - Fade auditioning and quick editing using single keystrokes
+--   - Extensive user preferences editable via GUI
+--   ## 📖 Documentation
+--   Visit (github.com/soapy-zoo/ReaScripts).
 -- @changelog
 --    - major refactor
 --    - variable names
