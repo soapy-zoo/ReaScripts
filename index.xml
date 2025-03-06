@@ -296,12 +296,13 @@ Reaper Toolkit (rtk)
 {\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Set one or two destination markers.}  Place the edit cursor and run the scripts {\f1 SetDstIn} or {\f1 SetDstOut} respectively.\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Perform the Edit!}  Keep the source item selected, then run one of the three scripts:  - {\f1 3pointNoRipple}  - {\f1 3pointRipple}  - {\f1 4point}\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u55356 ?\u57255 ? Fade Audition\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Hover the mouse over any item. To hear the fade closest to the mouse pointer, run one of the scripts:  \u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ? - {\f1 AuditionXFade} : You will hear the crossfade.  \u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ? - {\f1 AuditionXIn} : You will hear material up to the fade.  \u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ? - {\f1 AuditionXOut} : You will hear material after the fade.  \u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ? - {\f1 AuditionOIn} : You will hear the {\i left} side material {\i extended past} the fade.  \u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ?\u160 ? - {\f1 AuditionOOut} : You will hear the {\i right} side material {\i extended before} the fade.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This one is the easiest!\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Hover the mouse near an item fade and run one of the scripts:}  \u160 ?\u160 ?\u160 ? - {\f1 AuditionXFade} : You will hear the crossfade.  \u160 ?\u160 ?\u160 ? - {\f1 AuditionXIn} : You will hear material up to the fade.  \u160 ?\u160 ?\u160 ? - {\f1 AuditionXOut} : You will hear material after the fade.  \u160 ?\u160 ?\u160 ? - {\f1 AuditionOIn} : You will hear the {\i left} side material {\i extended past} the fade.  \u160 ?\u160 ?\u160 ? - {\f1 AuditionOOut} : You will hear the {\i right} side material {\i extended before} the fade.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Pre-roll and post-roll times are editable in the user preferences. More to come.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u55356 ?\u57242 ?\u65039 ? Quick Fade Edit\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 You might want to turn on ripple mode {\b (and off, after you're done)}. :)  Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility.  Consider having a look at the Snail \u55357 ?\u56332 ? Tools which might come in handy when ripple editing with media in fixed item lanes.\par}
-{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Line up items at the cut.}  To make the waveform visible, use the script {\f1 ExtendItems}.  Hover over any item near its edge and run the script in order to extend the items' ends incrementally in opposite directions.\par}
-{\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Perform the Fade!}  Run the script {\f1 QuickFade} to place a quick standard fade at your mouse position. Sculpt the fade to taste.\sa180\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Things to note}  You might want to turn on ripple mode {\b (and off, after you're done)}. :) Consider having a look at the Snail \u55357 ?\u56332 ? Tools which might come in handy when {\b ripple editing} with media in fixed item lanes.  Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility.\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Line up items at the cut.}  Hover over any item near its edge and run the script {\f1 ExtendItems}.  This will extend the items' ends incrementally in opposite directions and thus make the waveforms visible.\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Perform the Fade!}  Run the script {\f1 QuickFade} to place a standard fade at your mouse position. Sculpt the fade to taste.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Standard fade length and extension increments are editable in the user preferences.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u55357 ?\u56453 ? User Preferences\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Find all preferences concerning the seahorse scripts by running {\f1 soapy-seahorse_Preferences.lua}  Switch through tabs on the top right.  With text / number entries, don't forget to save using the {\i Apply} buttons.\par}
@@ -311,6 +312,8 @@ Reaper Toolkit (rtk)
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Active development is in progress using REAPER 7.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Snail \u55357 ?\u56332 ? Tools for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Lock items in Fixed Item Lanes when ripple editing. Useful complementary scripts to the source-destination workflow presented above.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u10071 ? Important\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Head to {\i REAPER Preferences -> Editing Behavior} and set {\i Locked item ripple editing behavior: {\b Locked items are unaffected by ripple}}. Otherwise, the scripts will not work.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Bat \u55358 ?\u56711 ? Tools for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Quickly move items around using sync points.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Install the Scripts via ReaPack\par}
