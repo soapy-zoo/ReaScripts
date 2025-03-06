@@ -25,7 +25,7 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 <br> ✔️ your track groups' ```Razor Edit Lead / Follow``` parameters are set up as desired.
 <br> ✔️ your source media is organized in **fixed item lanes** and there is at least **one empty lane** at the top. This will be your destination.
 
-### ✂️ 3-Point Edit
+### ✂️ 3- and 4-Point Edit
 
 1. **Place the source markers in the desired area of your source take.** 
 <br> Select the source item (the lane does not have to be active). Place the edit cursor and run the scripts ```SetSrcIn``` or ```SetSrcOut``` respectively.
