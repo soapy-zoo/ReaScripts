@@ -6,9 +6,9 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 
 ## 🔥 Features
 
-✂️ Three-point and four-point multitrack source-destination editing
-<br> 🎧 Fade auditioning and quick editing using single keystrokes
-<br> 💅 extensive user preferences editable via GUI
+- Three-point and four-point multitrack source-destination editing
+- Fade auditioning and quick editing using single keystrokes
+- Extensive user preferences editable via GUI
 
 ## ⚙️ Prerequisites
 1. [SWS Extension](https://www.sws-extension.org/)
