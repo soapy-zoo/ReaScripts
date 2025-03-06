@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="soapy-zoo's scripts" commit="20f9cb481b4b1efee03860a5e861e1e80ed565ec">
+<index version="1" name="soapy-zoo's scripts" commit="927533297dbb890a80229f3bc31bbb9312d0b0c6">
   <category name="Items Editing">
     <reapack name="soapy-zoo_SelectItemsInTopLane.lua" type="script" desc="Select all items in topmost fixed lane">
       <version name="0.1" author="the soapy zoo" time="2025-02-27T01:47:55Z">
@@ -31,7 +31,13 @@
 \widowctrl\hyphauto
 
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Seahorse Source-Destination Tools\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 documentation will follow {\i soon(TM)}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Multitrack Source-Destination editing using REAPER's Fixed Item Lanes.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u55357 ?\u56613 ? Features\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Three-point and four-point multitrack source-destination editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Fade auditioning and quick editing using single keystrokes\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Extensive user preferences editable via GUI\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u55357 ?\u56534 ? Documentation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Visit (github.com/soapy-zoo/ReaScripts).\par}
 }
 ]]></description>
       </metadata>
