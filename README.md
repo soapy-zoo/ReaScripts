@@ -45,11 +45,11 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 This one is the easiest!
 
 1. **Hover the mouse near an item fade and run one of the scripts:**
-<br> &nbsp;&nbsp;&nbsp; - ```AuditionXFade``` : You will hear the crossfade.
-<br> &nbsp;&nbsp;&nbsp; - ```AuditionXIn``` : You will hear material up to the fade.
-<br> &nbsp;&nbsp;&nbsp; - ```AuditionXOut``` : You will hear material after the fade.
-<br> &nbsp;&nbsp;&nbsp; - ```AuditionOIn``` : You will hear the _left_ side material _extended past_ the fade.
-<br> &nbsp;&nbsp;&nbsp; - ```AuditionOOut``` : You will hear the _right_ side material _extended before_ the fade.
+<br> - ```AuditionXFade``` : You will hear the crossfade.
+<br> - ```AuditionXIn``` : You will hear material up to the fade.
+<br> - ```AuditionXOut``` : You will hear material after the fade.
+<br> - ```AuditionOIn``` : You will hear the _left_ side material _extended past_ the fade.
+<br> - ```AuditionOOut``` : You will hear the _right_ side material _extended before_ the fade.
 
 Pre-roll and post-roll times are editable in the user preferences. More to come.
 
