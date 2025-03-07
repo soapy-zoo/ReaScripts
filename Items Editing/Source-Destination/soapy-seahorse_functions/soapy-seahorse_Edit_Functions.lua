@@ -90,6 +90,9 @@ function se.ThreePointEdit(b_Ripple)
     local rippleStateAll, rippleStatePer, trimContentState = se.GetEditStates()
 
     if b_Ripple then
+
+        if not se.CheckRippleLockMode() then return end
+
         if rippleStatePer == 0 then
             r.Main_OnCommand(41990, 0) -- Set ripple editing per track on
         end
@@ -1415,44 +1418,31 @@ end
 
 -------------------------------------------------------------------
 
-function se.ErrMsgStep()
+function se.CheckRippleLockMode()
 
-    r.ShowMessageBox("step", "Debug Message", 0)
+    local rippleLockMode = r.SNM_GetIntConfigVar("ripplelockmode", 8)
+
+    if rippleLockMode ~= 2 then
+
+        local retval = r.MB("IMPORTANT: Ripple Lock Mode is not set properly. \n\nGo to REAPER Preferences -> 'Editing Behavior' and set 'Locked item ripple editing behavior' to 'Locked items are unaffected by ripple'. \n\nOtherwise, unexpected things happen that might destroy your edits. \n\n'Yes': Change the setting automatically for me, please. \n'No': Let me go to the preferences myself.", "Warning", 4)
+
+        if retval == 6 then
+
+            r.SNM_SetIntConfigVar("ripplelockmode", 2)
+            r.MB('You\'re all set!', 'Sucess', 0)
+            return true
+
+        else return false end
+
+    else return true end
 
 end
 
---------------------------
--- deprecated functions --
---------------------------
+-------------------------------------------------------------------
 
-function se.GetItemsOnLane(flaggedGUID)
+function se.ErrMsgStep()
 
-    -- get media track and fixed lane of flagged item
-    local flaggedItem = r.BR_GetMediaItemByGUID(0, flaggedGUID)
-    if not flaggedItem then return end
-    local flaggedLane = r.GetMediaItemInfo_Value(flaggedItem, "I_FIXEDLANE")
-
-    local mediaTrack = r.GetMediaItem_Track(flaggedItem)
-    if not mediaTrack then return end
-    local itemCount = r.CountTrackMediaItems(mediaTrack)
-
-    local tbl_laneItemsGUID = {}
-
-    for i = 0, itemCount - 1 do
-
-        local mediaItem = r.GetTrackMediaItem(mediaTrack, i)
-        if mediaItem then
-
-        local itemLane = r.GetMediaItemInfo_Value(mediaItem, "I_FIXEDLANE")
-
-        if itemLane == flaggedLane then
-            local newGUID = r.BR_GetMediaItemGUID(mediaItem)
-            table.insert(tbl_laneItemsGUID, newGUID)
-        end
-        end
-    end
-
-    return tbl_laneItemsGUID
+    r.ShowMessageBox("step", "Debug Message", 0)
 
 end
 

@@ -1,5 +1,5 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.7
+-- @version 0.2.8
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
@@ -9,11 +9,9 @@
 --   - Fade auditioning and quick editing using single keystrokes
 --   - Extensive user preferences editable via GUI
 --   ## 📖 Documentation
---   Visit (github.com/soapy-zoo/ReaScripts).
+--   Visit https://github.com/soapy-zoo/ReaScripts
 -- @changelog
---    - major refactor
---    - variable names
---    - documentation / comments
+--    - check for the correct ripple lock mode setting and notify the user
 -- @provides
 --    [main] *.lua
 --    [nomain] soapy-seahorse_functions/*.lua
