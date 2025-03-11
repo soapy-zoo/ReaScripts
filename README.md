@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/feb693ca-bd95-44a1-9e46-bb7ecf1d34b2
 2. [ReaPack](https://reapack.com/)
 3. [Reaper Toolkit (rtk)](https://reapertoolkit.dev/#1_reapack)
 4. Head to _REAPER Preferences -> Editing Behavior_ and set  _Locked item ripple editing behavior: **Locked items are unaffected by ripple**_
-5. For multitrack editing, set all relevant tracks' _grouping parameters_ to _**Media/Razor Edit Lead**_ as well as _**Media/Razor Edit Follow**_
+5. For multitrack editing, set tracks' _grouping parameters_ to _**Media/Razor Edit Lead**_ as well as _**Media/Razor Edit Follow**_
 6. Activate _Options -> **Offset overlapping items vertically**_ for better visibility
 7. The scripts assume all source media / takes to reside in fixed item lanes. Comp Destination is the topmost lane.
 
@@ -56,7 +56,7 @@ Pre-roll and post-roll times are editable in the user preferences. More to come.
 ### 🎚️ Quick Fade Edit
 
 1. **Things to note**
-<br> You might want to turn on ripple mode **(and off, after you're done)**. :) Consider having a look at the Snail 🐌 Tools which might come in handy when **ripple editing** with media in fixed item lanes.
+<br> You might want to turn on ripple mode **(and off, after you're done)**. :) Consider having a look at the [Snail 🐌 Tools (below)](Snail-🐌-Tools-for-REAPER) which might come in handy when **ripple editing** with media in fixed item lanes.
 <br> Activate _Options -> **Offset overlapping items vertically**_ for better visibility. 
 
 2. **Line up items at the cut.**
