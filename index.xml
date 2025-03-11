@@ -335,7 +335,7 @@ Reaper Toolkit (rtk)
 }}}
 \par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Head to {\i REAPER Preferences -> Editing Behavior} and set {\i Locked item ripple editing behavior: {\b Locked items are unaffected by ripple}}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab For multitrack editing, set all relevant tracks' {\i grouping parameters} to {\i {\b Media/Razor Edit Lead}} as well as {\i {\b Media/Razor Edit Follow}}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab For multitrack editing, set tracks' {\i grouping parameters} to {\i {\b Media/Razor Edit Lead}} as well as {\i {\b Media/Razor Edit Follow}}\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab The scripts assume all source media / takes to reside in fixed item lanes. Comp Destination is the topmost lane.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u55356 ?\u57119 ? How it works\par}
@@ -350,7 +350,10 @@ Reaper Toolkit (rtk)
 {\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Hover the mouse near an item fade and run one of the scripts:}  - {\f1 AuditionXFade} : You will hear the crossfade.  - {\f1 AuditionXIn} : You will hear material up to the fade.  - {\f1 AuditionXOut} : You will hear material after the fade.  - {\f1 AuditionOIn} : You will hear the {\i left} side material {\i extended past} the fade.  - {\f1 AuditionOOut} : You will hear the {\i right} side material {\i extended before} the fade.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Pre-roll and post-roll times are editable in the user preferences. More to come.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u55356 ?\u57242 ?\u65039 ? Quick Fade Edit\par}
-{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Things to note}  You might want to turn on ripple mode {\b (and off, after you're done)}. :) Consider having a look at the Snail \u55357 ?\u56332 ? Tools which might come in handy when {\b ripple editing} with media in fixed item lanes.  Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility.\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Things to note}  You might want to turn on ripple mode {\b (and off, after you're done)}. :) Consider having a look at the {\field{\*\fldinst{HYPERLINK "Snail-\u55357 ?\u56332 ?-Tools-for-REAPER"}}{\fldrslt{\ul
+Snail \u55357 ?\u56332 ? Tools (below)
+}}}
+ which might come in handy when {\b ripple editing} with media in fixed item lanes.  Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility.\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Line up items at the cut.}  Hover over any item near its edge and run the script {\f1 ExtendItems}.  This will extend the items' ends incrementally in opposite directions and thus make the waveforms visible.\par}
 {\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Perform the Fade!}  Run the script {\f1 QuickFade} to place a standard fade at your mouse position. Sculpt the fade to taste.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Standard fade length and extension increments are editable in the user preferences.\par}
