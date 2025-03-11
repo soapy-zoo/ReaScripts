@@ -361,7 +361,7 @@ Snail \u55357 ?\u56332 ? Tools (below)
 {\pard \ql \f0 \sa180 \li0 \fi0 Find all preferences concerning the seahorse scripts by running {\f1 soapy-seahorse_Preferences.lua}  Switch through tabs on the top right.  With text / number entries, don't forget to save using the {\i Apply} buttons.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u9889 ? Known Limitations\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab So far, the scripts only respect symmetrical crossfades. Asymmetrical crossfades have to be edited manually.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Certain operations will cause muted items to be unmuted. This will be resolved shortly.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Audition functions will cause certain muted items to be unmuted. This can't be resolved because of a limit within Lua/ReaScript.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Active development is in progress using REAPER 7.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Snail \u55357 ?\u56332 ? Tools for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Lock items in Fixed Item Lanes when ripple editing. Useful complementary scripts to the source-destination workflow presented above.\par}
