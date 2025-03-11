@@ -90,7 +90,7 @@ Otherwise, the scripts will not work.
 Quickly move items around using sync points.
 
 # Install the Scripts via ReaPack
-https://raw.githubusercontent.com/soapy-zoo/ReaScripts/refs/heads/master/index.xml
+https://github.com/soapy-zoo/ReaScripts/raw/master/index.xml
 
 # Credits
 Huge thanks to all people who contributed to the project. 🌈
