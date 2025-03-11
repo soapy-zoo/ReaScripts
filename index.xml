@@ -350,7 +350,7 @@ Reaper Toolkit (rtk)
 {\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Hover the mouse near an item fade and run one of the scripts:}  - {\f1 AuditionXFade} : You will hear the crossfade.  - {\f1 AuditionXIn} : You will hear material up to the fade.  - {\f1 AuditionXOut} : You will hear material after the fade.  - {\f1 AuditionOIn} : You will hear the {\i left} side material {\i extended past} the fade.  - {\f1 AuditionOOut} : You will hear the {\i right} side material {\i extended before} the fade.\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Pre-roll and post-roll times are editable in the user preferences. More to come.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 \u55356 ?\u57242 ?\u65039 ? Quick Fade Edit\par}
-{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Things to note}  You might want to turn on ripple mode {\b (and off, after you're done)}. :) Consider having a look at the {\field{\*\fldinst{HYPERLINK "Snail-\u55357 ?\u56332 ?-Tools-for-REAPER"}}{\fldrslt{\ul
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Things to note}  You might want to turn on ripple mode {\b (and off, after you're done)}. :) Consider having a look at the {\field{\*\fldinst{HYPERLINK "#snail--tools-for-reaper"}}{\fldrslt{\ul
 Snail \u55357 ?\u56332 ? Tools (below)
 }}}
  which might come in handy when {\b ripple editing} with media in fixed item lanes.  Activate {\i Options -> {\b Offset overlapping items vertically}} for better visibility.\par}
