@@ -1,5 +1,5 @@
 -- @description Source-Destination Tools ("Seahorse")
--- @version 0.2.8
+-- @version 0.2.9pre1
 -- @author the soapy zoo
 -- @about
 --   # Seahorse Source-Destination Tools 
@@ -92,39 +92,6 @@ local spacer = rtk.Text{'\n', fontscale=0.2}
 
 local tbl_Settings = {}
 
-local b_ShowHoverWarnings,
-f_xFadeLen,
-b_AutoCrossfade,
-b_MoveDstGateAfterEdit,
-b_RemoveAllSourceGates,
-b_EditTargetsItemUnderMouse,
-b_KeepLaneSolo,
-b_PreserveEditCursorPosition,
-b_SelectRightItemAtCleanup,
-b_AvoidCollision,
-b_PreserveExistingCrossfade,
-b_EditTargetsMouseInsteadOfCursor,
-f_extensionAmount,
-f_collisionPadding,
-f_cursorBias_Extender,
-f_cursorBias_QuickFade,
-i_xFadeShape,
-b_TransportAutoStop,
-b_KeepCursorPosition,
-b_RemoveFade,
-f_preRoll,
-f_postRoll,
-b_GatesTargetItemUnderMouse,
-b_GatesTargetMouseInsteadOfCursor,
-s_markerLabel_SrcIn,
-s_markerLabel_SrcOut,
-s_markerLabel_DstIn,
-s_markerLabel_DstOut,
-i_markerIndex_DstIn,
-i_markerIndex_DstOut,
-c_markerColor_Src,
-c_markerColor_Dst
-
 -----------
 -- utils --
 -----------
@@ -133,38 +100,7 @@ function GetSettings()
 
     tbl_Settings = st.GetSettings()
 
-    b_ShowHoverWarnings = tbl_Settings.b_ShowHoverWarnings
-    f_xFadeLen = tbl_Settings.f_xFadeLen
-    b_AutoCrossfade = tbl_Settings.b_AutoCrossfade
-    b_MoveDstGateAfterEdit = tbl_Settings.b_MoveDstGateAfterEdit
-    b_RemoveAllSourceGates = tbl_Settings.b_RemoveAllSourceGates
-    b_EditTargetsItemUnderMouse = tbl_Settings.b_EditTargetsItemUnderMouse
-    b_KeepLaneSolo = tbl_Settings.b_KeepLaneSolo
-    b_PreserveEditCursorPosition = tbl_Settings.b_PreserveEditCursorPosition
-    b_SelectRightItemAtCleanup = tbl_Settings.b_SelectRightItemAtCleanup
-    b_AvoidCollision = tbl_Settings.b_AvoidCollision
-    b_PreserveExistingCrossfade = tbl_Settings.b_PreserveExistingCrossfade
-    b_EditTargetsMouseInsteadOfCursor = tbl_Settings.b_EditTargetsMouseInsteadOfCursor
-    f_extensionAmount = tbl_Settings.f_extensionAmount
-    f_collisionPadding = tbl_Settings.f_collisionPadding
-    f_cursorBias_Extender = tbl_Settings.f_cursorBias_Extender
-    f_cursorBias_QuickFade = tbl_Settings.f_cursorBias_QuickFade
-    i_xFadeShape = tbl_Settings.i_xFadeShape
-    b_TransportAutoStop = tbl_Settings.b_TransportAutoStop
-    b_KeepCursorPosition = tbl_Settings.b_KeepCursorPosition
-    b_RemoveFade = tbl_Settings.b_RemoveFade
-    f_preRoll = tbl_Settings.f_preRoll
-    f_postRoll = tbl_Settings.f_postRoll
-    b_GatesTargetItemUnderMouse = tbl_Settings.b_GatesTargetItemUnderMouse
-    b_GatesTargetMouseInsteadOfCursor = tbl_Settings.b_GatesTargetMouseInsteadOfCursor
-    s_markerLabel_SrcIn = tbl_Settings.s_markerLabel_SrcIn
-    s_markerLabel_SrcOut = tbl_Settings.s_markerLabel_SrcOut
-    s_markerLabel_DstIn = tbl_Settings.s_markerLabel_DstIn
-    s_markerLabel_DstOut = tbl_Settings.s_markerLabel_DstOut
-    i_markerIndex_DstIn = tbl_Settings.i_markerIndex_DstIn
-    i_markerIndex_DstOut = tbl_Settings.i_markerIndex_DstOut
-    c_markerColor_Src = tbl_Settings.c_markerColor_Src
-    c_markerColor_Dst = tbl_Settings.c_markerColor_Dst
+    for key in pairs(tbl_Settings) do _G[key] = tbl_Settings[key] end
 
 end
 
@@ -195,7 +131,7 @@ end
 
 function Main()
 
-    local window = rtk.Window{borderless=false, title='Seahorse Source-Destination Settings', minh=750}
+    local window = rtk.Window{borderless=false, title='Seahorse Source-Destination Settings', minh=750, minw=700}
 
     ----------------------
     -- general settings --
@@ -206,21 +142,10 @@ function Main()
 
             -- widgets
             local cb_ShowHoverWarnings = rtk.CheckBox{label='Show warning messages \n(this is helpful if you\'re using the scripts for the first time)', value=b_ShowHoverWarnings}
-            local en_xFadeLen = rtk.Entry{placeholder='Default Crossfade Length', textwidth=3.1, value=f_xFadeLen}
-            local tx_xFadeLen = rtk.Text{'Default Crossfade Length (seconds)'}
-            local bt_xFadeLen = rtk.Button{label='Apply', color=colorNeutral}
-
-            -- encapsulation for some of the widgets
-            local enBox = rtk.HBox{valign='center', spacing=8}
-            enBox:add(en_xFadeLen)
-            enBox:add(tx_xFadeLen)
-            enBox:add(bt_xFadeLen)
 
             -- all widgets in a child box, separate from heading and description
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
             childBox:add(cb_ShowHoverWarnings)
-            childBox:add(spacer)
-            childBox:add(enBox)
 
             -- put everything into the main container
             local pBox = rtk.VBox{margin=10, spacing=8}
@@ -233,19 +158,6 @@ function Main()
             -- widget event handling
             cb_ShowHoverWarnings.onchange = function()
                 r.SetExtState(sectionName, 'b_ShowHoverWarnings', BoolToString(cb_ShowHoverWarnings.value), true)
-            end
-            local en_xFadeLen_state = f_xFadeLen
-            en_xFadeLen.onchange = function()
-                en_xFadeLen_state = en_xFadeLen.value
-                bt_xFadeLen:animate{'color', dst=colorNo}
-            end
-            bt_xFadeLen.onclick = function()
-                if type(tonumber(en_xFadeLen_state)) == "number" and en_xFadeLen_state == en_xFadeLen_state then
-                    bt_xFadeLen:animate{'color', dst=colorYes}
-                    r.SetExtState(sectionName, 'f_xFadeLen', tostring(en_xFadeLen_state), true)
-                else
-                    ErrMsgNumber()
-                end
             end
         end
     }
@@ -264,10 +176,19 @@ function Main()
             local cb_removeAllSourceGates = rtk.CheckBox{label='Remove all source gates after edit', value=b_RemoveAllSourceGates}
             local cb_EditTargetsItemUnderMouse = rtk.CheckBox{label='Select item under mouse (no click to select required)', value=b_EditTargetsItemUnderMouse}
             local cb_KeepLaneSolo = rtk.CheckBox{label='Keep lane solo after edit, do not jump to comp lane', value=b_KeepLaneSolo}
+            local en_EditXFadeLen = rtk.Entry{placeholder='Crossfade Length', textwidth=3.1, value=f_EditXFadeLen}
+            local tx_EditXFadeLen = rtk.Text{'Crossfade Length (seconds)'}
+            local bt_EditXFadeLen = rtk.Button{label='Apply', color=colorNeutral}
 
             -- widgets in second child box
             local cb_GatesTargetItemUnderMouse = rtk.CheckBox{label='Select item under mouse (no click to select required)', value=b_GatesTargetItemUnderMouse}
             local cb_GatesTargetMouseInsteadOfCursor = rtk.CheckBox{label='Place source gate at mouse position instead of edit cursor', value=b_GatesTargetMouseInsteadOfCursor}
+
+            -- encapsulation for some of the widgets
+            local enBox = rtk.HBox{valign='center', spacing=8}
+            enBox:add(en_EditXFadeLen)
+            enBox:add(tx_EditXFadeLen)
+            enBox:add(bt_EditXFadeLen)
 
             -- widgets to different child boxes
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -276,6 +197,7 @@ function Main()
             childBox:add(cb_removeAllSourceGates)
             childBox:add(cb_EditTargetsItemUnderMouse)
             childBox:add(cb_KeepLaneSolo)
+            childBox:add(enBox)
 
             local childBox2 = rtk.FlowBox{margin=10, vspacing=4}
             childBox2:add(cb_GatesTargetItemUnderMouse)
@@ -291,7 +213,7 @@ function Main()
             -- add container to screen
             screen.widget = pBox
 
-            -- widget event handling
+            -- checkbox event handling
             cb_autoCrossfade.onchange = function()
                 r.SetExtState(sectionName, 'b_autoCrossfade', BoolToString(cb_autoCrossfade.value), true)
             end
@@ -314,6 +236,20 @@ function Main()
                 r.SetExtState(sectionName, 'b_GatesTargetMouseInsteadOfCursor', BoolToString(cb_GatesTargetMouseInsteadOfCursor.value), true)
             end
 
+            -- entry event handling
+            local en_EditXFadeLen_state = f_EditXFadeLen
+            en_EditXFadeLen.onchange = function()
+                en_EditXFadeLen_state = en_EditXFadeLen.value
+                bt_EditXFadeLen:animate{'color', dst=colorNo}
+            end
+            bt_EditXFadeLen.onclick = function()
+                if type(tonumber(en_EditXFadeLen_state)) == "number" and en_EditXFadeLen_state == en_EditXFadeLen_state then
+                    bt_EditXFadeLen:animate{'color', dst=colorYes}
+                    r.SetExtState(sectionName, 'f_EditXFadeLen', tostring(en_EditXFadeLen_state), true)
+                else
+                    ErrMsgNumber()
+                end
+            end
 
         end
     }
@@ -338,6 +274,9 @@ function Main()
             local en_collisionPadding = rtk.Entry{placeholder='Collision Padding (seconds)', textwidth=3.1, value=f_collisionPadding}
             local tx_collisionPadding = rtk.Text{'Collision Padding (seconds)'}
             local bt_collisionPadding = rtk.Button{label='Apply', color=colorNeutral}
+            local en_QuickFadeXFadeLen = rtk.Entry{placeholder='Crossfade Length', textwidth=3.1, value=f_QuickFadeXFadeLen}
+            local tx_QuickFadeXFadeLen = rtk.Text{'Crossfade Length (seconds)'}
+            local bt_QuickFadeXFadeLen = rtk.Button{label='Apply', color=colorNeutral}
 
             -- init state handling for some widgets
             if b_PreserveEditCursorPosition then
@@ -360,6 +299,10 @@ function Main()
             enBox2:add(en_collisionPadding)
             enBox2:add(tx_collisionPadding)
             enBox2:add(bt_collisionPadding)
+            local enBox3 = rtk.HBox{valign='center', spacing=8}
+            enBox3:add(en_QuickFadeXFadeLen)
+            enBox3:add(tx_QuickFadeXFadeLen)
+            enBox3:add(bt_QuickFadeXFadeLen)
 
             -- put widgets and capsules into child box with some spacers
             local childBox = rtk.FlowBox{margin=10, vspacing=4}
@@ -371,6 +314,7 @@ function Main()
             childBox:add(spacer)
             childBox:add(enBox1)
             childBox:add(enBox2)
+            childBox:add(enBox3)
 
             -- put everything into main container
             local pBox = rtk.VBox{margin=10, spacing=8}
@@ -408,7 +352,8 @@ function Main()
             end
 
             -- widget event handling pt.II: entries and buttons
-            local en_extensionAmount_state, en_collisionPadding_state = f_extensionAmount, f_collisionPadding
+            local en_extensionAmount_state, en_collisionPadding_state, en_QuickFadeXFadeLen_state = f_extensionAmount, f_collisionPadding, f_QuickFadeXFadeLen
+
             en_extensionAmount.onchange = function()
                 en_extensionAmount_state = en_extensionAmount.value
                 bt_extensionAmount:animate{'color', dst=colorNo}
@@ -430,6 +375,19 @@ function Main()
                 if type(tonumber(en_collisionPadding_state)) == "number" and en_collisionPadding_state == en_collisionPadding_state then
                     bt_collisionPadding:animate{'color', dst=colorYes}
                     r.SetExtState(sectionName, 'f_collisionPadding', en_collisionPadding_state, true)
+                else
+                    ErrMsgNumber()
+                end
+            end
+
+            en_QuickFadeXFadeLen.onchange = function()
+                en_QuickFadeXFadeLen_state = en_QuickFadeXFadeLen.value
+                bt_QuickFadeXFadeLen:animate{'color', dst=colorNo}
+            end
+            bt_QuickFadeXFadeLen.onclick = function()
+                if type(tonumber(en_QuickFadeXFadeLen_state)) == "number" and en_QuickFadeXFadeLen_state == en_QuickFadeXFadeLen_state then
+                    bt_QuickFadeXFadeLen:animate{'color', dst=colorYes}
+                    r.SetExtState(sectionName, 'f_QuickFadeXFadeLen', tostring(en_QuickFadeXFadeLen_state), true)
                 else
                     ErrMsgNumber()
                 end

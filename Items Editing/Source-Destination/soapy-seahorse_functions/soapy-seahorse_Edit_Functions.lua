@@ -47,7 +47,8 @@ local b_ShowHoverWarnings
 
 -- three and four point edits
 
-local xFadeLen
+local EditXFadeLen
+local QuickFadeXFadeLen
 local b_AutoCrossfade
 local b_MoveDstGateAfterEdit
 local b_RemoveAllSourceGates
@@ -158,7 +159,7 @@ function se.ThreePointEdit(b_Ripple)
     if b_AutoCrossfade then
         -- go to start of pasted item, set fade
         r.GoToMarker(0, markerIndex_DstIn, false)
-        se.SetCrossfade(xFadeLen)
+        se.SetCrossfade(EditXFadeLen)
     end
 
     se.RemoveSourceGates(-1, markerLabel_SrcIn, markerLabel_SrcOut)    -- remove src gates from newly pasted material
@@ -291,10 +292,10 @@ function se.FourPointEdit()
 
     if b_AutoCrossfade then
         r.GoToMarker(0, markerIndex_DstIn, false) -- go to start of pasted item
-        se.SetCrossfade(xFadeLen)
+        se.SetCrossfade(EditXFadeLen)
 
         r.SetEditCurPos(cursorPos_end, false, false) -- go to end of pasted item
-        se.SetCrossfade(xFadeLen)
+        se.SetCrossfade(EditXFadeLen)
     end
 
     se.RemoveSourceGates(-1, markerLabel_SrcIn, markerLabel_SrcOut)    -- remove src gates from newly pasted material
@@ -493,11 +494,11 @@ function se.QuickFade()
 
     if b_PreserveExistingCrossfade then
 
-        local success, fadeLen, fadeShape1, fadeShape2 = se.GetCrossfade(tbl_mediaItem, xFadeLen)
+        local success, fadeLen, fadeShape1, fadeShape2 = se.GetCrossfade(tbl_mediaItem, QuickFadeXFadeLen)
 
         if success then
 
-            xFadeLen = fadeLen
+            QuickFadeXFadeLen = fadeLen
 
             if fadeShape1 == fadeShape2 then
                 xFadeShape = fadeShape1
@@ -514,7 +515,7 @@ function se.QuickFade()
     se.SetGroupedItemsSelectedOnly(tbl_mediaItem)
 
     -- ## perform crossfade ## --
-    se.SetCrossfade2(curPos, xFadeLen)
+    se.SetCrossfade2(curPos, QuickFadeXFadeLen)
 
     if b_PreserveExistingCrossfade then
         se.ResetFadeShape(tbl_mediaItem, xFadeShape)
@@ -628,7 +629,8 @@ function GetSettings()
 
     -- three and four point edits
 
-    xFadeLen = tbl_Settings.f_xFadeLen
+    EditXFadeLen = tbl_Settings.f_EditXFadeLen
+    QuickFadeXFadeLen = tbl_Settings.f_QuickFadexFadeLen
     b_AutoCrossfade = tbl_Settings.b_AutoCrossfade
     b_MoveDstGateAfterEdit = tbl_Settings.b_MoveDstGateAfterEdit
     b_RemoveAllSourceGates = tbl_Settings.b_RemoveAllSourceGates
@@ -1107,7 +1109,6 @@ function se.RemoveSourceGates(safeLane, sourceLabelIn, sourceLabelOut)
 
         if itemLane >= safeLane and safeLane ~= -1 then
 
-            -- Remove existing MarkerLabel markers
             local numMarkers = r.GetNumTakeMarkers(activeTake)
             for h = numMarkers, 0, -1 do
                 local _, markerType, _, _, _ = r.GetTakeMarker(activeTake, h)
@@ -1123,7 +1124,6 @@ function se.RemoveSourceGates(safeLane, sourceLabelIn, sourceLabelOut)
 
             if itemLane == 0 then
 
-                -- Remove existing MarkerLabel markers
                 local numMarkers = r.GetNumTakeMarkers(activeTake)
                 for h = numMarkers, 0, -1 do
                     local _, markerType, _, _, _ = r.GetTakeMarker(activeTake, h)
@@ -1266,7 +1266,7 @@ function se.ClearDestinationArea(selStart, selEnd)
     r.Main_OnCommand(r.NamedCommandLookup("_XENAKIOS_SELITEMSUNDEDCURSELTX"), 0)
     se.DeselectItemsNotInTopLane()
     r.Main_OnCommand(40757, 0) -- Item: Split items at edit cursor (no change selection)
-    
+
     r.SetEditCurPos(selEnd, false, false)
     r.Main_OnCommand(r.NamedCommandLookup("_XENAKIOS_SELITEMSUNDEDCURSELTX"), 0)
     se.DeselectItemsNotInTopLane()

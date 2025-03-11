@@ -36,7 +36,8 @@ local tbl_defaultSettings = {
 
     -- three and four point edits 
 
-    f_xFadeLen = 0.05,                                -- default: 50 milliseconds (0.05)
+    f_EditXFadeLen = 0.05,                    -- default: 50 milliseconds (0.05)
+    f_QuickFadeXFadeLen = 0.05,               -- default: 50 milliseconds (0.05)
     b_AutoCrossfade = 1,                      -- fade newly edited items
     b_MoveDstGateAfterEdit = 1,               -- move destination gate to end of last pasted item (recommended)
     b_RemoveAllSourceGates = 1,               -- remove all source gates after the edit
