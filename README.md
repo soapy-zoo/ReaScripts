@@ -76,7 +76,7 @@ Find all preferences concerning the seahorse scripts by running ```soapy-seahors
 
 ## ⚡ Known Limitations
 - So far, the scripts only respect symmetrical crossfades. Asymmetrical crossfades have to be edited manually.
-- Certain operations will cause muted items to be unmuted. This will be resolved shortly.
+- Audition functions will cause certain muted items to be unmuted. This can't be resolved because of a limit within Lua/ReaScript.
 - Active development is in progress using REAPER 7.
 
 # Snail 🐌 Tools for REAPER
