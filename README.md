@@ -56,7 +56,7 @@ Pre-roll and post-roll times are editable in the user preferences. More to come.
 ### 🎚️ Quick Fade Edit
 
 1. **Things to note**
-<br> You might want to turn on ripple mode **(and off, after you're done)**. :) Consider having a look at the [Snail 🐌 Tools (below)](Snail-🐌-Tools-for-REAPER) which might come in handy when **ripple editing** with media in fixed item lanes.
+<br> You might want to turn on ripple mode **(and off, after you're done)**. :) Consider having a look at the [Snail 🐌 Tools (below)](#snail--tools-for-reaper) which might come in handy when **ripple editing** with media in fixed item lanes.
 <br> Activate _Options -> **Offset overlapping items vertically**_ for better visibility. 
 
 2. **Line up items at the cut.**
