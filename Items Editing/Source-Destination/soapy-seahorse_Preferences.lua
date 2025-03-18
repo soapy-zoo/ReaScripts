@@ -2,7 +2,7 @@
 -- @version 0.2.9pre1
 -- @author the soapy zoo
 -- @about
---   # Seahorse Source-Destination Tools 
+--   # Seahorse Source-Destination Tools
 --   Multitrack Source-Destination editing using REAPER's Fixed Item Lanes.
 --   ## 🔥 Features
 --   - Three-point and four-point multitrack source-destination editing
@@ -38,7 +38,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 ]]
-
 -- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% --
 --[[
 
@@ -70,9 +69,9 @@ xyBox123    capsule for a widget (the lower the number, the higher the hierarchy
 local r = reaper
 
 -- Set package path to find rtk installed via ReaPack
-package.path = reaper.GetResourcePath() .. '/Scripts/rtk/1/?.lua'
+package.path = reaper.GetResourcePath() .. "/Scripts/rtk/1/?.lua"
 -- Load the package
-local rtk = require('rtk')
+local rtk = require("rtk")
 -- Set the module-local log variable for more convenient logging.
 local log = rtk.log
 
@@ -83,8 +82,8 @@ local st = require("soapy-seahorse_Settings_Functions")
 local sectionName = st.GetSectionName()
 
 -- rtk constants
-local colorMain, colorYes, colorNo, colorNeutral = 'MediumOrchid', 'green', 'crimson', 'DimGrey'
-local spacer = rtk.Text{'\n', fontscale=0.2}
+local colorMain, colorYes, colorNo, colorNeutral = "MediumOrchid", "green", "crimson", "DimGrey"
+local spacer = rtk.Text {"\n", fontscale = 0.2}
 
 ---------------
 -- variables --
@@ -97,21 +96,20 @@ local tbl_Settings = {}
 -----------
 
 function GetSettings()
-
     tbl_Settings = st.GetSettings()
 
-    for key in pairs(tbl_Settings) do _G[key] = tbl_Settings[key] end
-
+    for key in pairs(tbl_Settings) do
+        _G[key] = tbl_Settings[key]
+    end
 end
 
 ----------------------------------------------------------------------------------------------------------
 
 function BoolToString(mybool)
-
     if mybool == true then
-        mybool = 'true'
+        mybool = "true"
     elseif mybool == false or mybool == nil then
-        mybool = 'false'
+        mybool = "false"
     end
 
     return mybool
@@ -120,9 +118,7 @@ end
 ----------------------------------------------------------------------------------------------------------
 
 function ErrMsgNumber()
-
-    r.MB('Please make sure to enter a valid number.', 'Notice', 0)
-
+    r.MB("Please make sure to enter a valid number.", "Notice", 0)
 end
 
 ----------
@@ -130,8 +126,8 @@ end
 ----------
 
 function Main()
-
-    local window = rtk.Window{borderless=false, title='Seahorse Source-Destination Settings', minh=750, minw=700}
+    local window =
+        rtk.Window {borderless = false, title = "Seahorse Source-Destination Settings", minh = 750, minw = 700}
 
     ----------------------
     -- general settings --
@@ -139,17 +135,20 @@ function Main()
 
     local general = {
         init = function(app, screen)
-
             -- widgets
-            local cb_ShowHoverWarnings = rtk.CheckBox{label='Show warning messages \n(this is helpful if you\'re using the scripts for the first time)', value=b_ShowHoverWarnings}
+            local cb_ShowHoverWarnings =
+                rtk.CheckBox {
+                label = "Show warning messages \n(this is helpful if you're using the scripts for the first time)",
+                value = b_ShowHoverWarnings
+            }
 
             -- all widgets in a child box, separate from heading and description
-            local childBox = rtk.FlowBox{margin=10, vspacing=4}
+            local childBox = rtk.VBox {margin = 10, vspacing = 4}
             childBox:add(cb_ShowHoverWarnings)
 
             -- put everything into the main container
-            local pBox = rtk.VBox{margin=10, spacing=8}
-            pBox:add(rtk.Heading{'General'})
+            local pBox = rtk.VBox {margin = 10, spacing = 8}
+            pBox:add(rtk.Heading {"General"})
             pBox:add(childBox)
 
             -- add container to screen
@@ -157,7 +156,7 @@ function Main()
 
             -- widget event handling
             cb_ShowHoverWarnings.onchange = function()
-                r.SetExtState(sectionName, 'b_ShowHoverWarnings', BoolToString(cb_ShowHoverWarnings.value), true)
+                r.SetExtState(sectionName, "b_ShowHoverWarnings", BoolToString(cb_ShowHoverWarnings.value), true)
             end
         end
     }
@@ -167,31 +166,49 @@ function Main()
     ----------------------------
 
     local edit_markers = {
-
         init = function(app, screen)
-
             -- widgets in first child box
-            local cb_autoCrossfade = rtk.CheckBox{label='Auto crossfade: Fade newly edited items', value=b_AutoCrossfade}
-            local cb_moveDstGateAfterEdit = rtk.CheckBox{label='Move destination gate to end of newly pasted item (recommended)', value=b_MoveDstGateAfterEdit}
-            local cb_removeAllSourceGates = rtk.CheckBox{label='Remove all source gates after edit', value=b_RemoveAllSourceGates}
-            local cb_EditTargetsItemUnderMouse = rtk.CheckBox{label='Select item under mouse (no click to select required)', value=b_EditTargetsItemUnderMouse}
-            local cb_KeepLaneSolo = rtk.CheckBox{label='Keep lane solo after edit, do not jump to comp lane', value=b_KeepLaneSolo}
-            local en_EditXFadeLen = rtk.Entry{placeholder='Crossfade Length', textwidth=3.1, value=f_EditXFadeLen}
-            local tx_EditXFadeLen = rtk.Text{'Crossfade Length (seconds)'}
-            local bt_EditXFadeLen = rtk.Button{label='Apply', color=colorNeutral}
+            local cb_autoCrossfade =
+                rtk.CheckBox {label = "Auto crossfade: Fade newly edited items", value = b_AutoCrossfade}
+            local cb_moveDstGateAfterEdit =
+                rtk.CheckBox {
+                label = "Move destination gate to end of newly pasted item (recommended)",
+                value = b_MoveDstGateAfterEdit
+            }
+            local cb_removeAllSourceGates =
+                rtk.CheckBox {label = "Remove all source gates after edit", value = b_RemoveAllSourceGates}
+            local cb_EditTargetsItemUnderMouse =
+                rtk.CheckBox {
+                label = "Select item under mouse (no click to select required)",
+                value = b_EditTargetsItemUnderMouse
+            }
+            local cb_KeepLaneSolo =
+                rtk.CheckBox {label = "Keep lane solo after edit, do not jump to comp lane", value = b_KeepLaneSolo}
+            local en_EditXFadeLen =
+                rtk.Entry {placeholder = "Crossfade Length", textwidth = 3.1, value = f_EditXFadeLen}
+            local tx_EditXFadeLen = rtk.Text {"Crossfade Length (seconds)"}
+            local bt_EditXFadeLen = rtk.Button {label = "Apply", color = colorNeutral}
 
             -- widgets in second child box
-            local cb_GatesTargetItemUnderMouse = rtk.CheckBox{label='Select item under mouse (no click to select required)', value=b_GatesTargetItemUnderMouse}
-            local cb_GatesTargetMouseInsteadOfCursor = rtk.CheckBox{label='Place source gate at mouse position instead of edit cursor', value=b_GatesTargetMouseInsteadOfCursor}
+            local cb_GatesTargetItemUnderMouse =
+                rtk.CheckBox {
+                label = "Select item under mouse (no click to select required)",
+                value = b_GatesTargetItemUnderMouse
+            }
+            local cb_GatesTargetMouseInsteadOfCursor =
+                rtk.CheckBox {
+                label = "Place source gate at mouse position instead of edit cursor",
+                value = b_GatesTargetMouseInsteadOfCursor
+            }
 
             -- encapsulation for some of the widgets
-            local enBox = rtk.HBox{valign='center', spacing=8}
+            local enBox = rtk.HBox {valign = "center", spacing = 8}
             enBox:add(en_EditXFadeLen)
             enBox:add(tx_EditXFadeLen)
             enBox:add(bt_EditXFadeLen)
 
             -- widgets to different child boxes
-            local childBox = rtk.FlowBox{margin=10, vspacing=4}
+            local childBox = rtk.VBox {margin = 10, vspacing = 4}
             childBox:add(cb_autoCrossfade)
             childBox:add(cb_moveDstGateAfterEdit)
             childBox:add(cb_removeAllSourceGates)
@@ -199,15 +216,15 @@ function Main()
             childBox:add(cb_KeepLaneSolo)
             childBox:add(enBox)
 
-            local childBox2 = rtk.FlowBox{margin=10, vspacing=4}
+            local childBox2 = rtk.VBox {margin = 10, vspacing = 4}
             childBox2:add(cb_GatesTargetItemUnderMouse)
             childBox2:add(cb_GatesTargetMouseInsteadOfCursor)
 
             -- child boxes to main container (parent box)
-            local pBox = rtk.VBox{margin=10, spacing=8}
-            pBox:add(rtk.Heading{'3- & 4-point Edit'})
+            local pBox = rtk.VBox {margin = 10, spacing = 8}
+            pBox:add(rtk.Heading {"3- & 4-point Edit"})
             pBox:add(childBox)
-            pBox:add(rtk.Heading{'Source & Destination Gates'})
+            pBox:add(rtk.Heading {"Source & Destination Gates"})
             pBox:add(childBox2)
 
             -- add container to screen
@@ -215,42 +232,56 @@ function Main()
 
             -- checkbox event handling
             cb_autoCrossfade.onchange = function()
-                r.SetExtState(sectionName, 'b_autoCrossfade', BoolToString(cb_autoCrossfade.value), true)
+                r.SetExtState(sectionName, "b_autoCrossfade", BoolToString(cb_autoCrossfade.value), true)
             end
             cb_moveDstGateAfterEdit.onchange = function()
-                r.SetExtState(sectionName, 'b_moveDstGateAfterEdit', BoolToString(cb_moveDstGateAfterEdit.value), true)
+                r.SetExtState(sectionName, "b_moveDstGateAfterEdit", BoolToString(cb_moveDstGateAfterEdit.value), true)
             end
             cb_removeAllSourceGates.onchange = function()
-                r.SetExtState(sectionName, 'b_removeAllSourceGates', BoolToString(cb_removeAllSourceGates.value), true)
+                r.SetExtState(sectionName, "b_removeAllSourceGates", BoolToString(cb_removeAllSourceGates.value), true)
             end
             cb_EditTargetsItemUnderMouse.onchange = function()
-                r.SetExtState(sectionName, 'b_EditTargetsItemUnderMouse', BoolToString(cb_EditTargetsItemUnderMouse.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_EditTargetsItemUnderMouse",
+                    BoolToString(cb_EditTargetsItemUnderMouse.value),
+                    true
+                )
             end
             cb_KeepLaneSolo.onchange = function()
-                r.SetExtState(sectionName, 'b_KeepLaneSolo', BoolToString(cb_KeepLaneSolo.value), true)
+                r.SetExtState(sectionName, "b_KeepLaneSolo", BoolToString(cb_KeepLaneSolo.value), true)
             end
             cb_GatesTargetItemUnderMouse.onchange = function()
-                r.SetExtState(sectionName, 'b_GatesTargetItemUnderMouse', BoolToString(cb_GatesTargetItemUnderMouse.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_GatesTargetItemUnderMouse",
+                    BoolToString(cb_GatesTargetItemUnderMouse.value),
+                    true
+                )
             end
             cb_GatesTargetMouseInsteadOfCursor.onchange = function()
-                r.SetExtState(sectionName, 'b_GatesTargetMouseInsteadOfCursor', BoolToString(cb_GatesTargetMouseInsteadOfCursor.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_GatesTargetMouseInsteadOfCursor",
+                    BoolToString(cb_GatesTargetMouseInsteadOfCursor.value),
+                    true
+                )
             end
 
             -- entry event handling
             local en_EditXFadeLen_state = f_EditXFadeLen
             en_EditXFadeLen.onchange = function()
                 en_EditXFadeLen_state = en_EditXFadeLen.value
-                bt_EditXFadeLen:animate{'color', dst=colorNo}
+                bt_EditXFadeLen:animate {"color", dst = colorNo}
             end
             bt_EditXFadeLen.onclick = function()
                 if type(tonumber(en_EditXFadeLen_state)) == "number" and en_EditXFadeLen_state == en_EditXFadeLen_state then
-                    bt_EditXFadeLen:animate{'color', dst=colorYes}
-                    r.SetExtState(sectionName, 'f_EditXFadeLen', tostring(en_EditXFadeLen_state), true)
+                    bt_EditXFadeLen:animate {"color", dst = colorYes}
+                    r.SetExtState(sectionName, "f_EditXFadeLen", tostring(en_EditXFadeLen_state), true)
                 else
                     ErrMsgNumber()
                 end
             end
-
         end
     }
 
@@ -259,53 +290,74 @@ function Main()
     ----------------------------
 
     local extend_fade = {
-
         init = function(app, screen)
-
             -- all widgets
-            local cb_PreserveEditCursorPosition = rtk.CheckBox{label='Preserve edit cursor position', value=b_PreserveEditCursorPosition}
-            local cb_SelectRightItemAtCleanup = rtk.CheckBox{label='Keep right item selected at cleanup', value=b_SelectRightItemAtCleanup}
-            local cb_AvoidCollision = rtk.CheckBox{label='Avoid Collision (avoid overlap of more than 2 items)', value=b_AvoidCollision}
-            local cb_PreserveExistingCrossfade = rtk.CheckBox{label='Preserve existing crossfade\'s length & shape', value=b_PreserveExistingCrossfade}
-            local cb_EditTargetsMouseInsteadOfCursor = rtk.CheckBox{label='Set fade at mouse position', value = b_EditTargetsMouseInsteadOfCursor}
-            local en_extensionAmount = rtk.Entry{placeholder='extension Amount (seconds)', textwidth=3.1, value=f_extensionAmount}
-            local tx_extensionAmount = rtk.Text{'Extension Amount (seconds)'}
-            local bt_extensionAmount = rtk.Button{label='Apply', color=colorNeutral}
-            local en_collisionPadding = rtk.Entry{placeholder='Collision Padding (seconds)', textwidth=3.1, value=f_collisionPadding}
-            local tx_collisionPadding = rtk.Text{'Collision Padding (seconds)'}
-            local bt_collisionPadding = rtk.Button{label='Apply', color=colorNeutral}
-            local en_QuickFadeXFadeLen = rtk.Entry{placeholder='Crossfade Length', textwidth=3.1, value=f_QuickFadeXFadeLen}
-            local tx_QuickFadeXFadeLen = rtk.Text{'Crossfade Length (seconds)'}
-            local bt_QuickFadeXFadeLen = rtk.Button{label='Apply', color=colorNeutral}
+            local cb_PreserveEditCursorPosition =
+                rtk.CheckBox {label = "Preserve edit cursor position", value = b_PreserveEditCursorPosition}
+            local cb_SelectRightItemAtCleanup =
+                rtk.CheckBox {label = "Keep right item selected at cleanup", value = b_SelectRightItemAtCleanup}
+            local cb_AvoidCollision =
+                rtk.CheckBox {label = "Avoid Collision (avoid overlap of more than 2 items)", value = b_AvoidCollision}
+            local cb_PreserveExistingCrossfade =
+                rtk.CheckBox {
+                label = "Preserve existing crossfade's length & shape",
+                value = b_PreserveExistingCrossfade
+            }
+            local cb_EditTargetsMouseInsteadOfCursor =
+                rtk.CheckBox {label = "Set fade at mouse position", value = b_EditTargetsMouseInsteadOfCursor}
+            local en_extensionAmount =
+                rtk.Entry {placeholder = "extension Amount (seconds)", textwidth = 3.1, value = f_extensionAmount}
+            local tx_extensionAmount = rtk.Text {"Extension Amount (seconds)"}
+            local bt_extensionAmount = rtk.Button {label = "Apply", color = colorNeutral}
+            local en_collisionPadding =
+                rtk.Entry {placeholder = "Collision Padding (seconds)", textwidth = 3.1, value = f_collisionPadding}
+            local tx_collisionPadding = rtk.Text {"Collision Padding (seconds)"}
+            local bt_collisionPadding = rtk.Button {label = "Apply", color = colorNeutral}
+            local en_QuickFadeXFadeLen =
+                rtk.Entry {placeholder = "Crossfade Length", textwidth = 3.1, value = f_QuickFadeXFadeLen}
+            local tx_QuickFadeXFadeLen = rtk.Text {"Crossfade Length (seconds)"}
+            local bt_QuickFadeXFadeLen = rtk.Button {label = "Apply", color = colorNeutral}
 
             -- init state handling for some widgets
             if b_PreserveEditCursorPosition then
-                cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                cb_PreserveEditCursorPosition:attr(
+                    "label",
+                    "Preserve edit cursor position\nEdit cursor stays where you left it"
+                )
             else
-                cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center between items')
+                cb_PreserveEditCursorPosition:attr(
+                    "label",
+                    "Preserve edit cursor position\nEdit cursor will jump to center between items"
+                )
             end
             if b_EditTargetsMouseInsteadOfCursor then
-                cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)')
+                cb_EditTargetsMouseInsteadOfCursor:attr(
+                    "label",
+                    "Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)"
+                )
             else
-                cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at edit cursor position')
+                cb_EditTargetsMouseInsteadOfCursor:attr(
+                    "label",
+                    "Set fade at mouse position\nFade is set at edit cursor position"
+                )
             end
 
             -- encapsulation for some widgets
-            local enBox1 = rtk.HBox{valign='center', spacing=8}
+            local enBox1 = rtk.HBox {valign = "center", spacing = 8}
             enBox1:add(en_extensionAmount)
             enBox1:add(tx_extensionAmount)
             enBox1:add(bt_extensionAmount)
-            local enBox2 = rtk.HBox{valign='center', spacing=8}
+            local enBox2 = rtk.HBox {valign = "center", spacing = 8}
             enBox2:add(en_collisionPadding)
             enBox2:add(tx_collisionPadding)
             enBox2:add(bt_collisionPadding)
-            local enBox3 = rtk.HBox{valign='center', spacing=8}
+            local enBox3 = rtk.HBox {valign = "center", spacing = 8}
             enBox3:add(en_QuickFadeXFadeLen)
             enBox3:add(tx_QuickFadeXFadeLen)
             enBox3:add(bt_QuickFadeXFadeLen)
 
             -- put widgets and capsules into child box with some spacers
-            local childBox = rtk.FlowBox{margin=10, vspacing=4}
+            local childBox = rtk.VBox {margin = 10, vspacing = 4}
             childBox:add(cb_PreserveEditCursorPosition)
             childBox:add(cb_SelectRightItemAtCleanup)
             childBox:add(cb_AvoidCollision)
@@ -317,8 +369,8 @@ function Main()
             childBox:add(enBox3)
 
             -- put everything into main container
-            local pBox = rtk.VBox{margin=10, spacing=8}
-            pBox:add(rtk.Heading{'Item Extender & Quick Fade'})
+            local pBox = rtk.VBox {margin = 10, spacing = 8}
+            pBox:add(rtk.Heading {"Item Extender & Quick Fade"})
             pBox:add(childBox)
 
             -- add container to screen
@@ -326,55 +378,103 @@ function Main()
 
             -- widget event handling pt.I: checkboxes
             cb_PreserveEditCursorPosition.onchange = function()
-                r.SetExtState(sectionName, 'b_PreserveEditCursorPosition', BoolToString(cb_PreserveEditCursorPosition.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_PreserveEditCursorPosition",
+                    BoolToString(cb_PreserveEditCursorPosition.value),
+                    true
+                )
                 if cb_PreserveEditCursorPosition.value then
-                    cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                    cb_PreserveEditCursorPosition:attr(
+                        "label",
+                        "Preserve edit cursor position\nEdit cursor stays where you left it"
+                    )
                 else
-                    cb_PreserveEditCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center between items')
+                    cb_PreserveEditCursorPosition:attr(
+                        "label",
+                        "Preserve edit cursor position\nEdit cursor will jump to center between items"
+                    )
                 end
             end
             cb_SelectRightItemAtCleanup.onchange = function()
-                r.SetExtState(sectionName, 'b_SelectRightItemAtCleanup', BoolToString(cb_SelectRightItemAtCleanup.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_SelectRightItemAtCleanup",
+                    BoolToString(cb_SelectRightItemAtCleanup.value),
+                    true
+                )
             end
             cb_AvoidCollision.onchange = function()
-                r.SetExtState(sectionName, 'b_AvoidCollision', BoolToString(cb_AvoidCollision.value), true)
+                r.SetExtState(sectionName, "b_AvoidCollision", BoolToString(cb_AvoidCollision.value), true)
             end
             cb_PreserveExistingCrossfade.onchange = function()
-                r.SetExtState(sectionName, 'b_PreserveExistingCrossfade', BoolToString(cb_PreserveExistingCrossfade.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_PreserveExistingCrossfade",
+                    BoolToString(cb_PreserveExistingCrossfade.value),
+                    true
+                )
             end
             cb_EditTargetsMouseInsteadOfCursor.onchange = function()
-                r.SetExtState(sectionName, 'b_EditTargetsMouseInsteadOfCursor', BoolToString(cb_EditTargetsMouseInsteadOfCursor.value), true)
+                r.SetExtState(
+                    sectionName,
+                    "b_EditTargetsMouseInsteadOfCursor",
+                    BoolToString(cb_EditTargetsMouseInsteadOfCursor.value),
+                    true
+                )
                 if cb_EditTargetsMouseInsteadOfCursor.value then
-                    cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)')
+                    cb_EditTargetsMouseInsteadOfCursor:attr(
+                        "label",
+                        "Set fade at mouse position\nFade is set at mouse position (fast mode - no click required)"
+                    )
                 else
-                    cb_EditTargetsMouseInsteadOfCursor:attr('label', 'Set fade at mouse position\nFade is set at edit cursor position')
+                    cb_EditTargetsMouseInsteadOfCursor:attr(
+                        "label",
+                        "Set fade at mouse position\nFade is set at edit cursor position"
+                    )
                 end
             end
 
             -- widget event handling pt.II: entries and buttons
-            local en_extensionAmount_state, en_collisionPadding_state, en_QuickFadeXFadeLen_state = f_extensionAmount, f_collisionPadding, f_QuickFadeXFadeLen
+            local en_extensionAmount_state, en_collisionPadding_state, en_QuickFadeXFadeLen_state =
+                f_extensionAmount,
+                f_collisionPadding,
+                f_QuickFadeXFadeLen
 
             en_extensionAmount.onchange = function()
                 en_extensionAmount_state = en_extensionAmount.value
-                bt_extensionAmount:animate{'color', dst=colorNo}
+                -- plus Rahmen rot einfärben
+                if not type(tonumber(en_extensionAmount_state)) == "number" then
+                    ErrMsgNumber()
+                end
+                if not en_extensionAmount_state == en_extensionAmount_state then
+                    ErrMsgNumber()
+                end
             end
-            bt_extensionAmount.onclick = function()
-                if type(tonumber(en_extensionAmount_state)) == "number" and en_extensionAmount_state == en_extensionAmount_state then
-                    bt_extensionAmount:animate{'color', dst=colorYes}
-                    r.SetExtState(sectionName, 'f_extensionAmount', tostring(en_extensionAmount_state), true)
+            en_extensionAmount.onblur = function()
+                if
+                    type(tonumber(en_extensionAmount_state)) == "number" and
+                        en_extensionAmount_state == en_extensionAmount_state
+                 then
+                    r.SetExtState(sectionName, "f_extensionAmount", tostring(en_extensionAmount_state), true)
                 else
                     ErrMsgNumber()
                 end
             end
+            bt_extensionAmount.onclick = function()
+            end
 
             en_collisionPadding.onchange = function()
                 en_collisionPadding_state = en_collisionPadding.value
-                bt_collisionPadding:animate{'color', dst=colorNo}
+                bt_collisionPadding:animate {"color", dst = colorNo}
             end
             bt_collisionPadding.onclick = function()
-                if type(tonumber(en_collisionPadding_state)) == "number" and en_collisionPadding_state == en_collisionPadding_state then
-                    bt_collisionPadding:animate{'color', dst=colorYes}
-                    r.SetExtState(sectionName, 'f_collisionPadding', en_collisionPadding_state, true)
+                if
+                    type(tonumber(en_collisionPadding_state)) == "number" and
+                        en_collisionPadding_state == en_collisionPadding_state
+                 then
+                    bt_collisionPadding:animate {"color", dst = colorYes}
+                    r.SetExtState(sectionName, "f_collisionPadding", en_collisionPadding_state, true)
                 else
                     ErrMsgNumber()
                 end
@@ -382,12 +482,15 @@ function Main()
 
             en_QuickFadeXFadeLen.onchange = function()
                 en_QuickFadeXFadeLen_state = en_QuickFadeXFadeLen.value
-                bt_QuickFadeXFadeLen:animate{'color', dst=colorNo}
+                bt_QuickFadeXFadeLen:animate {"color", dst = colorNo}
             end
             bt_QuickFadeXFadeLen.onclick = function()
-                if type(tonumber(en_QuickFadeXFadeLen_state)) == "number" and en_QuickFadeXFadeLen_state == en_QuickFadeXFadeLen_state then
-                    bt_QuickFadeXFadeLen:animate{'color', dst=colorYes}
-                    r.SetExtState(sectionName, 'f_QuickFadeXFadeLen', tostring(en_QuickFadeXFadeLen_state), true)
+                if
+                    type(tonumber(en_QuickFadeXFadeLen_state)) == "number" and
+                        en_QuickFadeXFadeLen_state == en_QuickFadeXFadeLen_state
+                 then
+                    bt_QuickFadeXFadeLen:animate {"color", dst = colorYes}
+                    r.SetExtState(sectionName, "f_QuickFadeXFadeLen", tostring(en_QuickFadeXFadeLen_state), true)
                 else
                     ErrMsgNumber()
                 end
@@ -400,61 +503,83 @@ function Main()
     -----------------------
 
     local audition = {
-
         init = function(app, screen)
-
             -- all widgets
-            local cb_TransportAutoStop = rtk.CheckBox{label='Auto stop transport after auditioning', value=b_TransportAutoStop}
-            local cb_KeepCursorPosition = rtk.CheckBox{label='Preserve edit cursor position', value=b_KeepCursorPosition}
-            local cb_RemoveFade = rtk.CheckBox{label='Audition without fade', value=b_RemoveFade}
+            local cb_TransportAutoStop =
+                rtk.CheckBox {label = "Auto stop transport after auditioning", value = b_TransportAutoStop}
+            local cb_KeepCursorPosition =
+                rtk.CheckBox {label = "Preserve edit cursor position", value = b_KeepCursorPosition}
+            local cb_RemoveFade = rtk.CheckBox {label = "Audition without fade", value = b_RemoveFade}
 
-            local sl_preRoll = rtk.Slider{placeholder='Audition Pre Roll', color=colorMain, min=0.0, max=8.0, step=0.02, value=f_preRoll}
-            local en_preRoll = rtk.Entry{textwidth=3.1, value=f_preRoll}
-            local bt_preRoll = rtk.Button{label='Apply', color=colorNeutral}
+            local sl_preRoll =
+                rtk.Slider {
+                placeholder = "Audition Pre Roll",
+                color = colorMain,
+                min = 0.0,
+                max = 8.0,
+                step = 0.02,
+                value = f_preRoll
+            }
+            local en_preRoll = rtk.Entry {textwidth = 3.1, value = f_preRoll}
+            local bt_preRoll = rtk.Button {label = "Apply", color = colorNeutral}
 
-            local sl_postRoll = rtk.Slider{placeholder='Audition Post Roll', color=colorMain, min=0.0, max=8.0, step=0.02, value=f_postRoll}
-            local en_postRoll = rtk.Entry{textwidth=3.1, value=f_postRoll}
-            local bt_postRoll = rtk.Button{label='Apply', color=colorNeutral}
+            local sl_postRoll =
+                rtk.Slider {
+                placeholder = "Audition Post Roll",
+                color = colorMain,
+                min = 0.0,
+                max = 8.0,
+                step = 0.02,
+                value = f_postRoll
+            }
+            local en_postRoll = rtk.Entry {textwidth = 3.1, value = f_postRoll}
+            local bt_postRoll = rtk.Button {label = "Apply", color = colorNeutral}
 
             -- init state handling for some widgets
             if b_KeepCursorPosition then
-                cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                cb_KeepCursorPosition:attr(
+                    "label",
+                    "Preserve edit cursor position\nEdit cursor stays where you left it"
+                )
             else
-                cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center of fade')
+                cb_KeepCursorPosition:attr(
+                    "label",
+                    "Preserve edit cursor position\nEdit cursor will jump to center of fade"
+                )
             end
             if b_RemoveFade then
-                cb_RemoveFade:attr('label', 'Audition without fade\nFade is temporarily removed for auditioning')
+                cb_RemoveFade:attr("label", "Audition without fade\nFade is temporarily removed for auditioning")
             else
-                cb_RemoveFade:attr('label', 'Audition without fade\nAuditions the fade as-is')
+                cb_RemoveFade:attr("label", "Audition without fade\nAuditions the fade as-is")
             end
 
             -- encapsulation for some widgets: slider + text + entry + button
-            local slBox11 = rtk.HBox{spacing=5, valign='center'}
-            slBox11:add(rtk.Text{'Short'})
+            local slBox11 = rtk.HBox {spacing = 5, valign = "center"}
+            slBox11:add(rtk.Text {"Short"})
             slBox11:add(sl_preRoll)
-            slBox11:add(rtk.Text{'Long'})
-            local slBox1 = rtk.VBox{}
-            slBox1:add(rtk.Text{'Audition Pre Roll'})
+            slBox11:add(rtk.Text {"Long"})
+            local slBox1 = rtk.VBox {}
+            slBox1:add(rtk.Text {"Audition Pre Roll"})
             slBox1:add(slBox11)
-            local slBox111 = rtk.HBox{spacing=5, valign='center'}
+            local slBox111 = rtk.HBox {spacing = 5, valign = "center"}
             slBox111:add(en_preRoll)
             slBox111:add(bt_preRoll)
             slBox1:add(slBox111)
 
-            local slBox22 = rtk.HBox{spacing=5, valign='center'}
-            slBox22:add(rtk.Text{'Short'})
+            local slBox22 = rtk.HBox {spacing = 5, valign = "center"}
+            slBox22:add(rtk.Text {"Short"})
             slBox22:add(sl_postRoll)
-            slBox22:add(rtk.Text{'Long'})
-            local slBox2 = rtk.VBox{}
-            slBox2:add(rtk.Text{'Audition Post Roll'})
+            slBox22:add(rtk.Text {"Long"})
+            local slBox2 = rtk.VBox {}
+            slBox2:add(rtk.Text {"Audition Post Roll"})
             slBox2:add(slBox22)
-            local slBox222 = rtk.HBox{spacing=5, valign='center'}
+            local slBox222 = rtk.HBox {spacing = 5, valign = "center"}
             slBox222:add(en_postRoll)
             slBox222:add(bt_postRoll)
             slBox2:add(slBox222)
 
             -- put all widgets into child box with some spacers
-            local childBox = rtk.FlowBox{margin=10, vspacing=4}
+            local childBox = rtk.VBox {margin = 10, vspacing = 4}
             childBox:add(cb_TransportAutoStop)
             childBox:add(cb_KeepCursorPosition)
             childBox:add(cb_RemoveFade)
@@ -464,8 +589,8 @@ function Main()
             childBox:add(slBox2)
 
             -- child box and heading into main container (parent box)
-            local pBox = rtk.VBox{margin=10, spacing=8}
-            pBox:add(rtk.Heading{'Fade Audition'})
+            local pBox = rtk.VBox {margin = 10, spacing = 8}
+            pBox:add(rtk.Heading {"Fade Audition"})
             pBox:add(childBox)
 
             -- show main container on screen
@@ -473,22 +598,28 @@ function Main()
 
             -- widget event handling pt. I: checkboxes
             cb_TransportAutoStop.onchange = function()
-                r.SetExtState(sectionName, 'b_TransportAutoStop', BoolToString(cb_TransportAutoStop.value), true)
+                r.SetExtState(sectionName, "b_TransportAutoStop", BoolToString(cb_TransportAutoStop.value), true)
             end
             cb_KeepCursorPosition.onchange = function()
-                r.SetExtState(sectionName, 'b_KeepCursorPosition', BoolToString(cb_KeepCursorPosition.value), true)
+                r.SetExtState(sectionName, "b_KeepCursorPosition", BoolToString(cb_KeepCursorPosition.value), true)
                 if cb_KeepCursorPosition.value then
-                    cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor stays where you left it')
+                    cb_KeepCursorPosition:attr(
+                        "label",
+                        "Preserve edit cursor position\nEdit cursor stays where you left it"
+                    )
                 else
-                    cb_KeepCursorPosition:attr('label', 'Preserve edit cursor position\nEdit cursor will jump to center of fade')
+                    cb_KeepCursorPosition:attr(
+                        "label",
+                        "Preserve edit cursor position\nEdit cursor will jump to center of fade"
+                    )
                 end
             end
             cb_RemoveFade.onchange = function()
-                r.SetExtState(sectionName, 'b_RemoveFade', BoolToString(cb_RemoveFade.value), true)
+                r.SetExtState(sectionName, "b_RemoveFade", BoolToString(cb_RemoveFade.value), true)
                 if cb_RemoveFade.value then
-                    cb_RemoveFade:attr('label', 'Audition without fade\nFade is temporarily removed for auditioning')
+                    cb_RemoveFade:attr("label", "Audition without fade\nFade is temporarily removed for auditioning")
                 else
-                    cb_RemoveFade:attr('label', 'Audition without fade\nAuditions the fade as-is')
+                    cb_RemoveFade:attr("label", "Audition without fade\nAuditions the fade as-is")
                 end
             end
 
@@ -496,26 +627,26 @@ function Main()
             local en_preRoll_state, en_postRoll_state = f_preRoll, f_postRoll
             sl_preRoll.onchange = function()
                 en_preRoll_state = sl_preRoll.value
-                en_preRoll:attr('value', tostring(en_preRoll_state))
-                r.SetExtState(sectionName, 'f_preRoll', en_preRoll_state, true)
-                bt_preRoll:animate{'color', dst=colorYes}
+                en_preRoll:attr("value", tostring(en_preRoll_state))
+                r.SetExtState(sectionName, "f_preRoll", en_preRoll_state, true)
+                bt_preRoll:animate {"color", dst = colorYes}
             end
 
             en_preRoll.onchange = function()
                 en_preRoll_state = en_preRoll.value
                 if type(tonumber(en_preRoll_state)) == "number" and en_preRoll_state == en_preRoll_state then
-                    sl_preRoll:attr('value', en_preRoll.value)
-                    bt_preRoll:animate{'color', dst=colorNo}
+                    sl_preRoll:attr("value", en_preRoll.value)
+                    bt_preRoll:animate {"color", dst = colorNo}
                 else
                     ErrMsgNumber()
-                    bt_preRoll:attr('color', colorNo)
+                    bt_preRoll:attr("color", colorNo)
                 end
             end
 
             bt_preRoll.onclick = function()
                 if type(tonumber(en_preRoll_state)) == "number" and en_preRoll_state == en_preRoll_state then
-                    r.SetExtState(sectionName, 'f_preRoll', en_preRoll_state, true)
-                    bt_preRoll:attr('color', colorYes)
+                    r.SetExtState(sectionName, "f_preRoll", en_preRoll_state, true)
+                    bt_preRoll:attr("color", colorYes)
                 else
                     ErrMsgNumber()
                 end
@@ -523,26 +654,26 @@ function Main()
 
             sl_postRoll.onchange = function()
                 en_postRoll_state = sl_postRoll.value
-                en_postRoll:attr('value', tostring(en_postRoll_state))
-                r.SetExtState(sectionName, 'f_postRoll', en_postRoll_state, true)
-                bt_postRoll:animate{'color', dst=colorYes}
+                en_postRoll:attr("value", tostring(en_postRoll_state))
+                r.SetExtState(sectionName, "f_postRoll", en_postRoll_state, true)
+                bt_postRoll:animate {"color", dst = colorYes}
             end
 
             en_postRoll.onchange = function()
                 en_postRoll_state = en_postRoll.value
                 if type(tonumber(en_postRoll_state)) == "number" and en_postRoll_state == en_postRoll_state then
-                    sl_postRoll:attr('value', en_postRoll.value)
-                    bt_postRoll:animate{'color', dst=colorNo}
+                    sl_postRoll:attr("value", en_postRoll.value)
+                    bt_postRoll:animate {"color", dst = colorNo}
                 else
-                    bt_postRoll:attr('color', colorNo)
+                    bt_postRoll:attr("color", colorNo)
                     ErrMsgNumber()
                 end
             end
 
             bt_postRoll.onclick = function()
                 if type(tonumber(en_postRoll_state)) == "number" and en_postRoll_state == en_postRoll_state then
-                    r.SetExtState(sectionName, 'f_postRoll', en_postRoll_state, true)
-                    bt_postRoll:attr('color', colorYes)
+                    r.SetExtState(sectionName, "f_postRoll", en_postRoll_state, true)
+                    bt_postRoll:attr("color", colorYes)
                 else
                     ErrMsgNumber()
                 end
@@ -555,14 +686,13 @@ function Main()
     -----------------------
 
     local advanced = {
-
         init = function(app, screen)
             -- widget
-            local bt_trashSettings = rtk.Button{label='Trash Settings', color=colorNo}
+            local bt_trashSettings = rtk.Button {label = "Trash Settings", color = colorNo}
 
             -- put widget, heading and text into main container
-            local pBox = rtk.VBox{margin=10, spacing=8}
-            pBox:add(rtk.Heading{'Advanced'})
+            local pBox = rtk.VBox {margin = 10, spacing = 8}
+            pBox:add(rtk.Heading {"Advanced"})
             pBox:add(bt_trashSettings)
 
             -- show main container on screen
@@ -571,7 +701,7 @@ function Main()
             -- widget event handling
             bt_trashSettings.onclick = function()
                 st.DeleteAllSettings(true)
-                bt_trashSettings:animate{'color', dst=colorYes}
+                bt_trashSettings:animate {"color", dst = colorYes}
             end
         end
     }
@@ -585,71 +715,70 @@ function Main()
     app.statusbar:hide()
 
     -- add screens to app
-    app:add_screen(general, 'general')
-    app:add_screen(edit_markers, 'edit_markers')
-    app:add_screen(extend_fade, 'extend_fade')
-    app:add_screen(audition, 'audition')
-    app:add_screen(advanced, 'advanced')
+    app:add_screen(general, "general")
+    app:add_screen(edit_markers, "edit_markers")
+    app:add_screen(extend_fade, "extend_fade")
+    app:add_screen(audition, "audition")
+    app:add_screen(advanced, "advanced")
 
     -- build toolbar
-    local b1 = app.toolbar:add(rtk.Button{label='General', color=colorMain})
-    local b2 = app.toolbar:add(rtk.Button{label='Edit & Gates', color=colorNeutral})
-    local b3 = app.toolbar:add(rtk.Button{label='Extend & Fade', color=colorNeutral})
-    local b4 = app.toolbar:add(rtk.Button{label='Audition', color=colorNeutral})
-    local b5 = app.toolbar:add(rtk.Button{label='Advanced', color=colorNeutral})
+    local b1 = app.toolbar:add(rtk.Button {label = "General", color = colorMain})
+    local b2 = app.toolbar:add(rtk.Button {label = "Edit & Gates", color = colorNeutral})
+    local b3 = app.toolbar:add(rtk.Button {label = "Extend & Fade", color = colorNeutral})
+    local b4 = app.toolbar:add(rtk.Button {label = "Audition", color = colorNeutral})
+    local b5 = app.toolbar:add(rtk.Button {label = "Advanced", color = colorNeutral})
 
     -- toolbar event handling
     -- toolbar button of the currently shown tab is highlighted in 'MediumOrchid', the others are greyed out
     b1.onclick = function()
-        app:push_screen('general')
-        b1:animate{'color', dst=colorMain}
-        b2:animate{'color', dst=colorNeutral}
-        b3:animate{'color', dst=colorNeutral}
-        b4:animate{'color', dst=colorNeutral}
-        b5:animate{'color', dst=colorNeutral}
+        app:push_screen("general")
+        b1:animate {"color", dst = colorMain}
+        b2:animate {"color", dst = colorNeutral}
+        b3:animate {"color", dst = colorNeutral}
+        b4:animate {"color", dst = colorNeutral}
+        b5:animate {"color", dst = colorNeutral}
         -- necessary for a reason I forgot:
         return true
     end
     b2.onclick = function()
-        app:push_screen('edit_markers')
-        b1:animate{'color', dst=colorNeutral}
-        b2:animate{'color', dst=colorMain}
-        b3:animate{'color', dst=colorNeutral}
-        b4:animate{'color', dst=colorNeutral}
-        b5:animate{'color', dst=colorNeutral}
+        app:push_screen("edit_markers")
+        b1:animate {"color", dst = colorNeutral}
+        b2:animate {"color", dst = colorMain}
+        b3:animate {"color", dst = colorNeutral}
+        b4:animate {"color", dst = colorNeutral}
+        b5:animate {"color", dst = colorNeutral}
         return true
     end
     b3.onclick = function()
-        app:push_screen('extend_fade')
-        b1:animate{'color', dst=colorNeutral}
-        b2:animate{'color', dst=colorNeutral}
-        b3:animate{'color', dst=colorMain}
-        b4:animate{'color', dst=colorNeutral}
-        b5:animate{'color', dst=colorNeutral}
+        app:push_screen("extend_fade")
+        b1:animate {"color", dst = colorNeutral}
+        b2:animate {"color", dst = colorNeutral}
+        b3:animate {"color", dst = colorMain}
+        b4:animate {"color", dst = colorNeutral}
+        b5:animate {"color", dst = colorNeutral}
         return true
     end
     b4.onclick = function()
-        app:push_screen('audition')
-        b1:animate{'color', dst=colorNeutral}
-        b2:animate{'color', dst=colorNeutral}
-        b3:animate{'color', dst=colorNeutral}
-        b4:animate{'color', dst=colorMain}
-        b5:animate{'color', dst=colorNeutral}
+        app:push_screen("audition")
+        b1:animate {"color", dst = colorNeutral}
+        b2:animate {"color", dst = colorNeutral}
+        b3:animate {"color", dst = colorNeutral}
+        b4:animate {"color", dst = colorMain}
+        b5:animate {"color", dst = colorNeutral}
         return true
     end
     b5.onclick = function()
-        app:push_screen('advanced')
-        b1:animate{'color', dst=colorNeutral}
-        b2:animate{'color', dst=colorNeutral}
-        b3:animate{'color', dst=colorNeutral}
-        b4:animate{'color', dst=colorNeutral}
-        b5:animate{'color', dst=colorMain}
+        app:push_screen("advanced")
+        b1:animate {"color", dst = colorNeutral}
+        b2:animate {"color", dst = colorNeutral}
+        b3:animate {"color", dst = colorNeutral}
+        b4:animate {"color", dst = colorNeutral}
+        b5:animate {"color", dst = colorMain}
         return true
     end
 
     -- post-requisite for the app
     window:open()
-
 end
 
 --------------

@@ -31,9 +31,6 @@ local se = {}
 local modulePath = ({r.get_action_context()})[2]:match("^.+[\\/]")
 package.path = modulePath .. "soapy-seahorse_functions/?.lua"
 local sf = require("soapy-seahorse_Fades_Functions")
-
-modulePath = ({r.get_action_context()})[2]:match("^.+[\\/]")
-package.path = modulePath .. "soapy-seahorse_functions/?.lua"
 local st = require("soapy-seahorse_Settings_Functions")
 
 local markerLabel_SrcIn
@@ -454,7 +451,6 @@ end
 ----------------
 
 function se.QuickFade()
-
     GetSettings()
 
     r.Undo_BeginBlock()
@@ -462,7 +458,7 @@ function se.QuickFade()
 
     local saveXFadeState = r.NamedCommandLookup("_SWS_SAVEXFD")
     r.Main_OnCommand(saveXFadeState, 1) -- SWS: Save auto crossfade state
-    r.Main_OnCommand(41119, 1) -- Options: Disable Auto Crossfades
+    r.Main_OnCommand(41119, 1)          -- Options: Disable Auto Crossfades
 
     local curPosOrigin = r.GetCursorPosition()
     local timeSelStart, timeSelEnd = se.GetTimeSelectionStartEnd()
@@ -479,32 +475,38 @@ function se.QuickFade()
     -- ## get items ## --
 
     local _, item1GUID, item2GUID, _ = sf.GetItemsNearMouse(cursorBias_QuickFade)
-    if not item1GUID then se.QuickFade_Cleanup(_, curPos, curPosOrigin) return end
-    if not item2GUID then se.QuickFade_Cleanup(_, curPos, curPosOrigin) return end
+    if not item1GUID then
+        se.QuickFade_Cleanup(_, curPos, curPosOrigin)
+        return
+    end
+    if not item2GUID then
+        se.QuickFade_Cleanup(_, curPos, curPosOrigin)
+        return
+    end
 
     local tbl_mediaItem = {}
     table.insert(tbl_mediaItem, r.BR_GetMediaItemByGUID(0, item1GUID))
     table.insert(tbl_mediaItem, r.BR_GetMediaItemByGUID(0, item2GUID))
 
     for i = 1, #tbl_mediaItem do
-        if not tbl_mediaItem[i] then se.QuickFade_Cleanup(_, curPos) return end
+        if not tbl_mediaItem[i] then
+            se.QuickFade_Cleanup(_, curPos)
+            return
+        end
     end
 
     -- ## if requested: get fade length ## --
 
     if b_PreserveExistingCrossfade then
-
         local success, fadeLen, fadeShape1, fadeShape2 = se.GetCrossfade(tbl_mediaItem, QuickFadeXFadeLen)
 
         if success then
-
             QuickFadeXFadeLen = fadeLen
 
             if fadeShape1 == fadeShape2 then
                 xFadeShape = fadeShape1
             end
         end
-
     end
 
     -- ## manipulate items in order to be able to fade ## --
@@ -528,7 +530,6 @@ function se.QuickFade()
     r.PreventUIRefresh(-1)
     r.UpdateArrange()
     r.Undo_EndBlock("ReaPyr Quick Fade", 0)
-
 end
 
 -------------------------------------------
@@ -630,7 +631,7 @@ function GetSettings()
     -- three and four point edits
 
     EditXFadeLen = tbl_Settings.f_EditXFadeLen
-    QuickFadeXFadeLen = tbl_Settings.f_QuickFadexFadeLen
+    QuickFadeXFadeLen = tbl_Settings.f_QuickFadeXFadeLen
     b_AutoCrossfade = tbl_Settings.b_AutoCrossfade
     b_MoveDstGateAfterEdit = tbl_Settings.b_MoveDstGateAfterEdit
     b_RemoveAllSourceGates = tbl_Settings.b_RemoveAllSourceGates
